@@ -51,6 +51,15 @@ not branch — the volume dwarfs the handoff cost and the work needs none of
 your accumulated context. Delegation transfers work, not accountability: you
 inspect what comes back and you integrate it.
 
+When a package's acceptance criteria are crisp and testable, consider making
+tests the delegation contract: encode the criteria as failing tests before
+any implementation exists, then hand "make these pass without modifying
+them" to a lesser-tier delegate. A failing test suite is the
+lowest-ambiguity brief a delegate can receive — done is machine-checked, not
+argued. Write the tests yourself or delegate their derivation as its own
+bounded objective; never assign derivation and implementation to the same
+delegate.
+
 ## Review at boundaries
 
 Invoke `reviewing-work` at risk-appropriate boundaries — after a complete

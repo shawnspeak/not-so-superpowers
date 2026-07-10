@@ -25,8 +25,11 @@ language is the engineering.
   runs brainstorming and mapping; a strong-but-cheaper model (e.g. Opus)
   runs the lead; bounded low-ambiguity and high-volume mechanical work goes
   down-tier (e.g. Haiku); the lead delegates *up*-tier for adversarial
-  review, architecture-changing diagnosis, and security calls. Keep new
-  prose compatible with this split.
+  review, architecture-changing diagnosis, and security calls. When
+  acceptance criteria are crisp and testable, failing tests written before
+  implementation are the preferred down-tier contract — "make these pass
+  without modifying them" makes done machine-checkable. Keep new prose
+  compatible with this split.
 - **Spec is contract, map is coordination aid.** Skills must never let the
   spec change silently; map reshaping is free but recorded.
 

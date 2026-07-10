@@ -15,6 +15,7 @@ and integrates the result.
 - read-only repository reconnaissance;
 - investigation of a contained subsystem;
 - implementation of an isolated package behind a stable interface;
+- implementation of a package against a pre-written failing test suite;
 - high-volume mechanical sweeps (bulk renames, repetitive scaffolding,
   boilerplate) that need volume, not the lead's context;
 - adversarial test derivation against stated acceptance criteria;
@@ -43,6 +44,15 @@ Every brief contains, explicitly:
 A brief the assigned model cannot succeed at safely is a lead error, not a
 delegate error. Shape the brief to the tier (below).
 
+**Tests as the contract.** When acceptance criteria are crisp and testable,
+the strongest brief encodes them as failing tests before delegation: the
+objective is "make these tests pass," the tests are the acceptance criteria,
+and verification is running them. State explicitly that the delegate must
+not modify the tests — a returned diff that edits them is a rejected result,
+not a negotiation. Derive the tests in the lead's context or delegate the
+derivation as its own bounded objective, never to the delegate that will
+implement against them.
+
 ## Ownership rules
 
 - Never run parallel delegates with edit permission over overlapping files.
@@ -69,6 +79,7 @@ low-risk work:
 - summarizing a contained subsystem;
 - running prescribed commands and collecting output;
 - isolated changes behind an already-defined interface;
+- implementation against a pre-written failing test suite it may not modify;
 - routine tests written from explicit criteria;
 - mechanical consistency checks;
 - evidence collection.
