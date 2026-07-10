@@ -10,7 +10,9 @@ Delegation is selective: lesser or cheaper models take bounded low-risk work
 when the harness allows model selection; peer or frontier models are
 reserved for ambiguity, coupling, risk, and consequential review.
 
-Design spec: [`docs/specs/2026-07-10-frontier-orchestration-skill-stack-design.md`](docs/specs/2026-07-10-frontier-orchestration-skill-stack-design.md)
+The skill files under [`skills/`](skills/) are the source of truth for the
+stack's behavior; [`CLAUDE.md`](CLAUDE.md) records the design intent and the
+conventions for changing them.
 
 ## The skills
 

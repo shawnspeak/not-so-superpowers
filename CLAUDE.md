@@ -55,9 +55,10 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
   worktrees are unavailable, the lead does the work sequentially with the
   same ownership, evidence, and review boundaries. Never add a step that
   hard-requires a harness facility.
-- The design spec in `docs/specs/` is the durable record. When a skill edit
-  materially diverges from it, flag the divergence to the user — amending
-  the spec needs their approval; do not silently sync or silently diverge.
+- The skill files themselves are the source of truth for the stack's
+  behavior; this CLAUDE.md records the intent behind them. When a skill edit
+  changes design intent — not just wording — update the "Design intent"
+  section above in the same change so the two never diverge.
 
 ## Testing
 

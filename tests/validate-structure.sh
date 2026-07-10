@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Structural validation for the skill stack (see docs/specs/*frontier-orchestration*).
+# Structural validation for the skill stack (design intent and conventions: CLAUDE.md).
 # Run from anywhere: paths are resolved relative to this script.
 set -u
 
