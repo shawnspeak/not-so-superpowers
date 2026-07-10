@@ -1,0 +1,13 @@
+{
+  "name": "not-so-superpowers",
+  "owner": {
+    "name": "shawnspeak"
+  },
+  "plugins": [
+    {
+      "name": "not-so-superpowers",
+      "source": "./",
+      "description": "Frontier orchestration skill stack: brainstorm, map, lead, delegate, review"
+    }
+  ]
+}

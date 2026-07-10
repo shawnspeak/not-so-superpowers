@@ -31,17 +31,42 @@ at risk boundaries and before consequential completion.
 ## Installation
 
 Each directory under `skills/` is independently installable — copy the whole
-collection or just the skills you want. There is no plugin manifest, no
-installer, and no required harness-specific dependency.
+collection or just the skills you want. The skills themselves have no
+harness-specific dependency; the plugin manifests below are additive.
 
-**Claude Code** — copy into a skills directory:
+**Claude Code (plugin, recommended)** — this repo is both a plugin and its
+own single-plugin marketplace (`.claude-plugin/`). To enable it in one
+project only, add to that project's `.claude/settings.json`:
 
-- per-project: `<repo>/.claude/skills/<skill-name>/`
-- personal: `~/.claude/skills/<skill-name>/`
+```json
+{
+  "extraKnownMarketplaces": {
+    "not-so-superpowers": {
+      "source": { "source": "github", "repo": "shawnspeak/not-so-superpowers" }
+    }
+  },
+  "enabledPlugins": {
+    "not-so-superpowers@not-so-superpowers": true
+  }
+}
+```
 
-**Codex** — copy into the skills location your Codex version supports
-(commonly `~/.codex/skills/<skill-name>/`); check the current Codex
-documentation.
+Interactive installs and `/plugin marketplace update` use your existing git
+credentials (gh CLI, SSH agent), so a private repo works as-is; background
+auto-update at session startup additionally needs `GITHUB_TOKEN`/`GH_TOKEN`
+set. Skills are namespaced, e.g. `not-so-superpowers:brainstorming`.
+Alternatively, skip the plugin and copy skill directories into
+`<repo>/.claude/skills/` (per-project) or `~/.claude/skills/` (personal).
+
+**Codex** — Codex CLI has no plugin/marketplace mechanism; it discovers
+skills from `.agents/skills/` (project) or `~/.agents/skills/` (user). Run
+the installer:
+
+```sh
+./install-codex.sh                 # copy into ~/.agents/skills
+./install-codex.sh --link          # symlink, so `git pull` here updates all installs
+./install-codex.sh path/to/project/.agents/skills   # per-project
+```
 
 Only `delegating-workstreams` carries harness-specific material, isolated in
 its `references/` directory. Core skill bodies are platform-neutral and
