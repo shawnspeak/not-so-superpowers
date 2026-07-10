@@ -33,8 +33,12 @@ genuinely branches or an independent judgment is valuable: separate
 workstreams behind stable interfaces, read-only reconnaissance, adversarial
 checks, independent diagnosis. Never delegate tiny sequential edits to the
 code you are already holding in context — the handoff costs more than the
-work. Delegation transfers work, not accountability: you inspect what comes
-back and you integrate it.
+work. High-volume mechanical work is the exception at the other end of the
+scale: bulk renames, repetitive test scaffolding, boilerplate generation, and
+similar sweeps are worth handing to a lesser-tier delegate even when they do
+not branch — the volume dwarfs the handoff cost and the work needs none of
+your accumulated context. Delegation transfers work, not accountability: you
+inspect what comes back and you integrate it.
 
 ## Review at boundaries
 

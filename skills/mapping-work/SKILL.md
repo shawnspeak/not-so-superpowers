@@ -39,7 +39,11 @@ implementation evidence contradicts it.
 ## Produce the execution map
 
 Write a concise, living execution map — normally **three to eight
-outcome-sized work packages**. Each package records:
+outcome-sized work packages** — and persist it as a file alongside the spec
+(for example `docs/specs/YYYY-MM-DD-<topic>-execution-map.md`). The
+implementation lead may be a different session or a different model; the map
+must survive the handoff without the conversation that produced it. Each
+package records:
 
 - **Outcome** — the cohesive, independently verifiable result it delivers;
 - **Dependencies** — which packages must land first;
@@ -75,5 +79,6 @@ Otherwise the spec plus the execution map is the complete planning artifact.
 
 ## Handoff
 
-Hand the execution mode and map to `leading-implementation`. The lead owns
-the work from here; the map travels with it as a living document.
+Hand the execution mode and map to `leading-implementation` by file path.
+The lead owns the work from here; the map travels with it as a living
+document.

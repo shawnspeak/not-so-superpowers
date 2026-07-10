@@ -33,9 +33,12 @@ The Agent tool accepts a `model` parameter (for example `haiku`, `sonnet`,
 
 - lesser model → `haiku` (or the smallest available) for bounded
   low-ambiguity work;
-- peer/frontier → `opus` or the session's own model for ambiguous, coupled,
-  or consequential work; omitting `model` typically inherits the lead's
-  model, which is the safe default when unsure.
+- peer → `opus` or the session's own model for ambiguous, coupled, or
+  consequential work; omitting `model` typically inherits the lead's model,
+  which is the safe default when unsure;
+- frontier → a top-tier model such as `fable`, where available, when the
+  lead itself runs below the frontier and needs to delegate up — adversarial
+  final review, architecture-changing diagnosis, security judgment.
 
 Project agents can also pin `model` in their `.claude/agents/*.md`
 frontmatter.

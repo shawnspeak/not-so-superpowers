@@ -15,6 +15,8 @@ and integrates the result.
 - read-only repository reconnaissance;
 - investigation of a contained subsystem;
 - implementation of an isolated package behind a stable interface;
+- high-volume mechanical sweeps (bulk renames, repetitive scaffolding,
+  boilerplate) that need volume, not the lead's context;
 - adversarial test derivation against stated acceptance criteria;
 - independent diagnosis of a failure the lead is stuck on;
 - review of a completed logical change.
@@ -51,9 +53,14 @@ delegate error. Shape the brief to the tier (below).
 
 ## Capability-tier selection
 
-Use the strongest available model for the persistent lead. When the harness
-exposes model selection for delegates, match tier to ambiguity and risk —
-not to how important the overall project feels.
+Run the persistent lead on a strong model — the strongest the budget allows.
+Leading one tier below the frontier is a legitimate economy when design and
+mapping already ran at the top tier: the lead then delegates **up-tier** for
+the judgments that warrant it — adversarial final review, diagnosis that may
+change the architecture, security calls — rather than carrying the frontier
+model through the whole implementation. When the harness exposes model
+selection for delegates, match tier to ambiguity and risk — not to how
+important the overall project feels.
 
 **Prefer a lesser (faster, cheaper) model** for bounded, low-ambiguity,
 low-risk work:
