@@ -17,7 +17,10 @@ language is the engineering.
   (`docs/specs/YYYY-MM-DD-<topic>.md`) and the execution map (persisted
   alongside it) must let a *different session or model* pick up the work
   cold. Any new handoff introduced between skills must travel via a file,
-  not conversation.
+  not conversation. This includes where the work lives: the map records the
+  workspace (branch or worktree) so a resumed session finds the work in
+  progress without repo-state archaeology — the skills follow project
+  branching convention rather than imposing one.
 - **Tiered model economics.** Intended usage: a frontier model (e.g. Fable)
   runs brainstorming and mapping; a strong-but-cheaper model (e.g. Opus)
   runs the lead; bounded low-ambiguity and high-volume mechanical work goes

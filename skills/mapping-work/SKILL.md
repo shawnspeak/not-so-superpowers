@@ -54,6 +54,13 @@ package records:
 - **Risks** — rollout, rollback, migration, or operational concerns, when
   applicable.
 
+Above the packages, record one top-level **workspace** line: the branch or
+worktree the implementation happens on. Follow the project's branching
+convention if one was discovered; propose a dedicated feature branch when
+the change is multi-file and the session sits on the default branch; write
+that there is no version control when that is the reality. A session
+resuming this work must be able to find it from the map alone.
+
 Size packages by outcome, never by duration. Do not decompose coherent work
 into mechanical two-to-five-minute actions; a package that is "rename the
 field, then update the callers, then fix the tests" is one package, not

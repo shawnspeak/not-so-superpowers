@@ -26,6 +26,17 @@ not throw it away by fragmenting coupled work across fresh contexts.
   material spec assumption, stop that path and resolve the product or
   architecture conflict with the user.
 
+## Confirm the workspace
+
+Before the first change, confirm that the workspace the map names — the
+branch or worktree the implementation lives on — matches reality, and create
+it if it does not exist yet. If the map is silent, decide now and record the
+decision in the map: follow the project's branching convention when one
+exists; prefer a dedicated feature branch when the change is multi-file and
+the session sits on the default branch; note the absence of version control
+rather than inventing it. A different session resuming this work must be
+able to find the work in progress from the map alone.
+
 ## Delegation is selective
 
 Delegate only through `delegating-workstreams`, and only when the work
