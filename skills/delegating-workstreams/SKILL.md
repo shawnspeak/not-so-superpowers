@@ -56,6 +56,9 @@ implement against them.
 ## Ownership rules
 
 - Never run parallel delegates with edit permission over overlapping files.
+- Delegates do not write history on the implementation workspace. A
+  delegate's result is its changes and evidence; the lead verifies the work
+  and makes the commit.
 - If workstreams turn out to be tightly coupled, or integration is becoming
   the dominant cost, **stop parallel edits and return ownership to the
   lead**. Absorbing two half-integrated diffs is worse than doing the work

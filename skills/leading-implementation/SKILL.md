@@ -37,6 +37,22 @@ the session sits on the default branch; note the absence of version control
 rather than inventing it. A different session resuming this work must be
 able to find the work in progress from the map alone.
 
+## Commit at package boundaries
+
+When the workspace is under version control, a verified package is a
+commit. Once a package's focused verification passes, commit its changes
+before moving on — one atomic, green checkpoint per package, written in the
+project's commit style as read from its history rather than a style imposed
+on it. Do not let verified work accumulate uncommitted across package
+boundaries: committed checkpoints are what let a resumed session recover
+the work, keep a failed later package revertible, and give the aggregate
+inspection at completion stable points to compare.
+
+History on the implementation workspace belongs to the lead. Verify a
+delegate's returned work before committing it, and never commit failing or
+unverified work as a completed package — if you must checkpoint
+mid-package, label the commit explicitly as work in progress.
+
 ## Delegation is selective
 
 Delegate only through `delegating-workstreams`, and only when the work
@@ -89,3 +105,6 @@ the final report. Before declaring done:
 4. report what changed, the evidence, and any remaining uncertainty —
    explicitly. Never infer success solely from a delegate's claim or a
    single passing command.
+
+Completion leaves the workspace fully committed: work that exists only in
+an uncommitted working tree is not done.

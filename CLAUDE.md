@@ -20,7 +20,12 @@ language is the engineering.
   not conversation. This includes where the work lives: the map records the
   workspace (branch or worktree) so a resumed session finds the work in
   progress without repo-state archaeology — the skills follow project
-  branching convention rather than imposing one.
+  branching convention rather than imposing one. The history is a durable
+  artifact too: the lead commits each work package as its verification
+  passes (in the project's commit style, read from its history), so
+  verified work is never stranded in an uncommitted tree and completion
+  leaves the workspace fully committed. Delegates return changes and
+  evidence; only the lead writes history on the implementation workspace.
 - **Tiered model economics.** Intended usage: a frontier model (e.g. Fable)
   runs brainstorming and mapping; a strong-but-cheaper model (e.g. Opus)
   runs the lead; bounded low-ambiguity and high-volume mechanical work goes
