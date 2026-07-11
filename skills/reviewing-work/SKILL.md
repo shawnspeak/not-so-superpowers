@@ -9,10 +9,26 @@ Review complete logical slices or the aggregate implementation — not every
 microscopic step. A review earns its cost when the thing reviewed is a
 coherent outcome whose defects would be expensive to discover later.
 
+## Who reviews
+
+Match reviewer independence to consequence. At routine boundaries, the
+reviewer may be a delegate, a peer model, or the lead re-reading with fresh
+eyes. Before **consequential completion** — authentication, data migrations,
+public APIs, anything where a shipped defect is expensive — the reviewer
+must be independent of the lead: a delegate or peer model (up-tier where
+warranted, per `delegating-workstreams`) that did not write the changes.
+The author re-reading their own work is not independent, however fresh the
+eyes.
+
+When no independent reviewer is available — no subagents or peer model in
+the harness — the lead falls back to reviewing as a deliberate separate
+pass with the full brief below, and the completion report must state that
+the review was not independent and why. Degraded independence is reported,
+never silent.
+
 ## The review brief
 
-Whether the reviewer is a delegate, a peer model, or the lead re-reading
-with fresh eyes, give it:
+Whoever reviews, give them:
 
 - the approved design spec (the contract being reviewed against);
 - the relevant diff or artifacts;

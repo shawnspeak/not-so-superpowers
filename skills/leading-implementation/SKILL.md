@@ -80,6 +80,9 @@ delegate.
 
 Invoke `reviewing-work` at risk-appropriate boundaries — after a complete
 logical slice whose failure would be expensive, and always before
+consequential completion. The consequential-completion review must be
+independent of the lead — delegate it through `delegating-workstreams`
+(up-tier where warranted); reviewing your own work does not gate
 consequential completion. Do not request review of every microscopic step.
 
 ## Escalate orchestration when

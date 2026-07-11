@@ -35,6 +35,12 @@ language is the engineering.
   implementation are the preferred down-tier contract — "make these pass
   without modifying them" makes done machine-checkable. Keep new prose
   compatible with this split.
+- **Independent review gates consequential completion.** The lead's own
+  re-read may cover routine boundaries, but the review before consequential
+  completion must come from a reviewer that did not write the changes — a
+  delegate or peer model, up-tier where warranted. When the harness offers
+  no independent reviewer, the lead's fallback self-review must be declared
+  in the completion report; degraded independence is reported, never silent.
 - **Spec is contract, map is coordination aid.** Skills must never let the
   spec change silently; map reshaping is free but recorded.
 
