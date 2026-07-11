@@ -22,10 +22,15 @@ language is the engineering.
   progress without repo-state archaeology — the skills follow project
   branching convention rather than imposing one. The history is a durable
   artifact too: the lead commits each work package as its verification
-  passes (in the project's commit style, read from its history), so
-  verified work is never stranded in an uncommitted tree and completion
-  leaves the workspace fully committed. Delegates return changes and
-  evidence; only the lead writes history on the implementation workspace.
+  passes (in the project's commit style, read from its history), staging
+  only the package's own paths, so verified work is never stranded in an
+  uncommitted tree and completion leaves the implementation's changes fully
+  committed. Pre-existing uncommitted changes are checked at workspace
+  confirmation — overlaps resolved with the user up front, the rest
+  preserved untouched — and workspace state is never journaled into the
+  map, which stays a coordination artifact. Delegates return changes and
+  evidence; only the lead writes history on the implementation workspace,
+  and delegates that edit concurrently work in isolated worktrees.
 - **Tiered model economics.** Intended usage: a frontier model (e.g. Fable)
   runs brainstorming and mapping; a strong-but-cheaper model (e.g. Opus)
   runs the lead; bounded low-ambiguity and high-volume mechanical work goes

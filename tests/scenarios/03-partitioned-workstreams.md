@@ -29,6 +29,9 @@ edits that conflict at integration.
 - The lead owns the shared interface, integration, and aggregate
   verification — these are never delegated.
 - No two editing delegates share files.
+- Concurrent editing delegates run in isolated workspaces (worktrees or
+  equivalent) — or, if isolation is unavailable, are run one at a time —
+  so no partial delegate work sits in the tree the lead commits from.
 
 ## Success criteria
 
@@ -36,4 +39,6 @@ edits that conflict at integration.
 2. Every delegate brief includes ownership, constraints, acceptance
    criteria, verification, and return format.
 3. No overlapping edit ownership between parallel delegates.
-4. The lead performs integration and runs aggregate verification itself.
+4. Concurrent editing delegates are isolated in their own workspaces or
+   serialized; the lead's package commits contain only that package's files.
+5. The lead performs integration and runs aggregate verification itself.

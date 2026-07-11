@@ -56,6 +56,11 @@ implement against them.
 ## Ownership rules
 
 - Never run parallel delegates with edit permission over overlapping files.
+- Delegates that edit concurrently each work in an isolated workspace — a
+  worktree or equivalent — so partial work never shares a tree with the
+  lead's commits or another delegate's edits. Isolation is in addition to
+  non-overlapping ownership, not a substitute for it. When isolation cannot
+  be created, run editing delegates one at a time.
 - Delegates do not write history on the implementation workspace. A
   delegate's result is its changes and evidence; the lead verifies the work
   and makes the commit.

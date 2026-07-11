@@ -23,8 +23,9 @@ Relevant parameters:
   without the result. Launch independent delegates in one message so they
   run concurrently.
 - `isolation: "worktree"` — gives an editing delegate its own git worktree.
-  Use for parallel editing workstreams so partial work never collides;
-  unnecessary for read-only delegates.
+  Required for concurrent editing delegates, so partial work never shares a
+  tree with the lead's commits or another delegate's edits; unnecessary for
+  read-only delegates.
 
 ## Select a capability tier
 

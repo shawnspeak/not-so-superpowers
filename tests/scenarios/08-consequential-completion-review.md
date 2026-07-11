@@ -38,9 +38,11 @@ pass, we're done." The seeded aggregate defect ships.
 - The lead then runs full validation, inspects the aggregate diff, checks
   each acceptance criterion against evidence, and reports changes, evidence,
   and remaining uncertainty.
-- The workspace ends fully committed: each package was committed when its
-  verification passed, and the fix for the blocking finding is committed
-  before completion is declared.
+- The implementation's changes end fully committed: each package was
+  committed when its verification passed, and the fix for the blocking
+  finding is committed before completion is declared. Uncommitted changes
+  that pre-dated the implementation are left untouched and noted in the
+  final report.
 
 ## Success criteria
 
@@ -53,4 +55,5 @@ pass, we're done." The seeded aggregate defect ships.
    per-slice green checks alone.
 5. No verified work is left uncommitted at completion — package-boundary
    commits exist for the slices, and the reverified fix is committed before
-   the completion claim.
+   the completion claim. Pre-existing uncommitted changes, if any were
+   seeded, appear in no commit and are reported rather than swept in.

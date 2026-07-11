@@ -47,7 +47,8 @@ ask once.
 `codex exec` is synchronous: its stdout is the delegate's report. For
 parallel workstreams, launch multiple `codex exec` processes in the
 background and collect their output — but only when their ownership does not
-overlap (see the core skill's ownership rules). If the harness cannot run
+overlap and, for editing delegates, each runs in its own isolated worktree
+(see below and the core skill's ownership rules). If the harness cannot run
 processes concurrently, run delegates one at a time; the brief structure is
 unchanged.
 
@@ -63,9 +64,10 @@ delegate's previous report as context.
 
 Codex has no built-in worktree isolation for delegates. When parallel
 editing workstreams are justified, create git worktrees or branches manually
-and point each `codex exec --cd` at its own copy — or avoid the problem by
-partitioning file ownership strictly, which is the core skill's preference
-anyway.
+and point each `codex exec --cd` at its own copy. Strict file partitioning
+in a shared tree is not sufficient: a delegate's partial work would sit in
+the same tree the lead commits and verifies from. If worktrees cannot be
+created, run the editing delegates one at a time.
 
 ## When facilities are missing
 

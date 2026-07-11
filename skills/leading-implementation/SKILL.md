@@ -37,6 +37,15 @@ the session sits on the default branch; note the absence of version control
 rather than inventing it. A different session resuming this work must be
 able to find the work in progress from the map alone.
 
+Check the workspace for pre-existing uncommitted changes at the same time.
+They belong to the user: never stage them into a package commit, never
+revert them, leave them as found. If any overlap files the map expects the
+implementation to touch, resolve the conflict with the user before the
+first change rather than working around it. Resolving overlaps up front is
+also what keeps a resumed session unambiguous: from then on, an uncommitted
+change inside a package's scope is implementation work in progress, and
+anything outside it is the user's and left alone.
+
 ## Commit at package boundaries
 
 When the workspace is under version control, a verified package is a
@@ -47,6 +56,12 @@ on it. Do not let verified work accumulate uncommitted across package
 boundaries: committed checkpoints are what let a resumed session recover
 the work, keep a failed later package revertible, and give the aggregate
 inspection at completion stable points to compare.
+
+A package commit is path-scoped. Stage only the files the package's work
+actually touched, and inspect the staged diff before committing to confirm
+it contains exactly that work — not pre-existing user changes, not a
+concurrent delegate's partial work. Never stage the whole tree in a
+workspace that holds anything besides the package's own changes.
 
 History on the implementation workspace belongs to the lead. Verify a
 delegate's returned work before committing it, and never commit failing or
@@ -109,5 +124,8 @@ the final report. Before declaring done:
    explicitly. Never infer success solely from a delegate's claim or a
    single passing command.
 
-Completion leaves the workspace fully committed: work that exists only in
-an uncommitted working tree is not done.
+Completion leaves the implementation's changes fully committed: work that
+exists only in an uncommitted working tree is not done. Pre-existing
+changes that were in the workspace before work began are left untouched
+and noted in the final report, so their presence is explained rather than
+mistaken for stranded work.
