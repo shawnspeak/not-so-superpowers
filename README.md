@@ -1,6 +1,6 @@
 # not-so-superpowers
 
-A portable collection of five skills for Codex and Claude Code that keeps
+A portable collection of six skills for Codex and Claude Code that keeps
 the strongest part of Superpowers — collaborative design — and replaces its
 mandatory detailed-plan, task-per-agent execution pipeline with adaptive
 orchestration suited to frontier models.
@@ -19,13 +19,15 @@ conventions for changing them.
 | Skill | Responsibility |
 |---|---|
 | [`brainstorming`](skills/brainstorming/SKILL.md) | Collaborative design: clarify, compare approaches, produce an approved written spec |
+| [`diagnosing`](skills/diagnosing/SKILL.md) | Root-cause investigation: reproduce, confirm the cause with evidence, produce an approved fix spec |
 | [`mapping-work`](skills/mapping-work/SKILL.md) | Inspect the repo, choose an execution mode, produce 3–8 outcome-sized work packages |
 | [`leading-implementation`](skills/leading-implementation/SKILL.md) | One persistent lead implements end to end, replans from evidence, owns integration |
 | [`delegating-workstreams`](skills/delegating-workstreams/SKILL.md) | Bounded delegate briefs, ownership rules, capability-tier model selection |
 | [`reviewing-work`](skills/reviewing-work/SKILL.md) | Review logical outcomes and the aggregate against the spec; evidence-based completion |
 
-Workflow: an idea goes through `brainstorming` to an approved spec; the spec
-goes through `mapping-work` to an execution mode and living map;
+Workflow: an idea goes through `brainstorming` to an approved design spec; a
+bug with an unknown cause goes through `diagnosing` to an approved fix spec;
+either spec goes through `mapping-work` to an execution mode and living map;
 `leading-implementation` carries it to completion, using
 `delegating-workstreams` when work genuinely branches and `reviewing-work`
 at risk boundaries and before consequential completion.
@@ -80,6 +82,6 @@ and review boundaries.
 
 - Structural: `tests/validate-structure.sh` — frontmatter, placeholders,
   referenced files, platform neutrality, body size.
-- Behavioral: `tests/scenarios/` — eight baseline-vs-forward scenarios
+- Behavioral: `tests/scenarios/` — nine baseline-vs-forward scenarios
   covering execution-mode selection, tier selection, coupling recovery,
-  replanning, and evidence-based completion.
+  replanning, root-cause routing, and evidence-based completion.

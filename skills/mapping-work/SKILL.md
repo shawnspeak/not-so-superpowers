@@ -1,6 +1,6 @@
 ---
 name: mapping-work
-description: Use when an approved design spec exists and needs to become an execution strategy — after brainstorming produces a spec, before implementation starts. Chooses an execution mode from repository evidence and produces outcome-sized work packages.
+description: Use when an approved spec exists and needs to become an execution strategy — after brainstorming produces a design spec or diagnosing produces a fix spec, before implementation starts. Chooses an execution mode from repository evidence and produces outcome-sized work packages.
 ---
 
 # Mapping Work
