@@ -37,6 +37,7 @@ Across the suite, the agent must:
 | `06-coupled-work-returns-to-lead.md` | parallel edits stopped when coupling emerges |
 | `07-failed-assumption-replan.md` | execution map updated vs. spec conflict escalated |
 | `08-consequential-completion-review.md` | independent review + aggregate verification before done |
+| `09-bug-report-routes-to-diagnosis.md` | root cause confirmed via reproduction before any fix |
 
 ## Structural validation
 

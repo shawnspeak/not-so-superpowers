@@ -1,14 +1,27 @@
 # CLAUDE.md
 
-Portable five-skill orchestration stack for Claude Code and Codex:
-`brainstorming` → `mapping-work` → `leading-implementation`, with
-`delegating-workstreams` and `reviewing-work` as support skills. The product
+Portable six-skill orchestration stack for Claude Code and Codex:
+`brainstorming` (design) or `diagnosing` (root-cause investigation) →
+`mapping-work` → `leading-implementation`, with `delegating-workstreams`
+and `reviewing-work` as support skills. The product
 of this repo is skill *prose* — there is no application code. Editing here
 means editing instructions that a frontier model will follow, so precision of
 language is the engineering.
 
 ## Design intent (why the prose says what it says)
 
+- **Two entry points, one downstream contract.** Features and design-shaped
+  problems enter through `brainstorming`; defects with an unknown cause
+  enter through `diagnosing`. Both end in an approved spec file that
+  `mapping-work` consumes identically — the pipeline downstream of the spec
+  never forks. Diagnosis is evidence-driven and leaves the codebase
+  unchanged:
+  reproduction before theory, one hypothesis at a time, cause confirmed by
+  mechanism/prediction/history before any fix is designed. Its acceptance
+  criteria name a test encoding the reproduction, which the lead writes
+  during implementation — dovetailing with the failing-tests-first
+  delegation contract below. Never let the two entry skills blur: design
+  compares legitimate alternatives; diagnosis converges on one truth.
 - **One persistent lead, selective delegation.** The stack deliberately
   rejects Superpowers-style task-per-agent pipelines. Context retained by a
   single lead is treated as the most valuable asset; never add prose that
@@ -32,7 +45,7 @@ language is the engineering.
   evidence; only the lead writes history on the implementation workspace,
   and delegates that edit concurrently work in isolated worktrees.
 - **Tiered model economics.** Intended usage: a frontier model (e.g. Fable)
-  runs brainstorming and mapping; a strong-but-cheaper model (e.g. Opus)
+  runs brainstorming, diagnosing, and mapping; a strong-but-cheaper model (e.g. Opus)
   runs the lead; bounded low-ambiguity and high-volume mechanical work goes
   down-tier (e.g. Haiku); the lead delegates *up*-tier for adversarial
   review, architecture-changing diagnosis, and security calls. When
@@ -85,7 +98,7 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
 ## Testing
 
 - Structural: `tests/validate-structure.sh` (fast, run always).
-- Behavioral: `tests/scenarios/*.md` — eight baseline-vs-forward scenarios
+- Behavioral: `tests/scenarios/*.md` — nine baseline-vs-forward scenarios
   run *manually* against real harness sessions; they are prompts plus
   success criteria, not executable tests. If a skill change alters a
   behavior a scenario probes (execution-mode choice, tier selection,

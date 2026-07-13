@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when the user brings an idea, feature request, or problem that needs design before implementation — before writing code for any non-trivial change. Guides collaborative design through clarifying questions, alternative comparison, and an approved written spec.
+description: Use when the user brings an idea, feature request, or problem that needs design before implementation — before writing code for any non-trivial change. For a bug or failure whose cause is unknown, use diagnosing first. Guides collaborative design through clarifying questions, alternative comparison, and an approved written spec.
 ---
 
 # Brainstorming

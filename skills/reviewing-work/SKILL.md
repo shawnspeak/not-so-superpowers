@@ -30,7 +30,7 @@ never silent.
 
 Whoever reviews, give them:
 
-- the approved design spec (the contract being reviewed against);
+- the approved spec (the contract being reviewed against);
 - the relevant diff or artifacts;
 - the verification evidence already collected (test output, command results);
 - the known tradeoffs and deliberate deviations, so they are not re-litigated;
