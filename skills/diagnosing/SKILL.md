@@ -54,8 +54,9 @@ stare. Keep a short written trail of hypotheses rejected and the evidence
 that killed each; the trail goes in the spec so the next reader does not
 re-walk dead ends.
 
-Investigation is read-only: do not fix, refactor, or clean up while in
-there. Temporary instrumentation is removed before the investigation ends.
+Investigation leaves the codebase unchanged: do not fix, refactor, or clean
+up while in there. Temporary instrumentation is removed before the
+investigation ends.
 If the harness offers delegation, bounded read-only reconnaissance of
 candidate subsystems may be dispatched per `delegating-workstreams`; its
 absence never blocks — investigate sequentially.
@@ -101,7 +102,8 @@ It records:
   makes that feasible.
 
 Writing that failing test is deliberately left to implementation —
-diagnosis stays read-only — but the spec must describe the reproduction
+diagnosis leaves the codebase unchanged — but the spec must describe the
+reproduction
 precisely enough that encoding it requires no rediscovery. Downstream, that
 test is the preferred delegation contract.
 

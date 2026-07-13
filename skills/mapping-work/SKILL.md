@@ -5,8 +5,8 @@ description: Use when an approved spec exists and needs to become an execution s
 
 # Mapping Work
 
-Translate an approved design spec into a repository-grounded execution
-strategy. The spec says what must be built; this skill decides how the work
+Translate an approved spec — design or fix — into a repository-grounded
+execution strategy. The spec says what must be built; this skill decides how the work
 is shaped. Repository evidence — not habit, not a fixed pipeline — determines
 the topology.
 

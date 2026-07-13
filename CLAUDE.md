@@ -14,7 +14,8 @@ language is the engineering.
   problems enter through `brainstorming`; defects with an unknown cause
   enter through `diagnosing`. Both end in an approved spec file that
   `mapping-work` consumes identically — the pipeline downstream of the spec
-  never forks. Diagnosis is evidence-driven and read-only on the codebase:
+  never forks. Diagnosis is evidence-driven and leaves the codebase
+  unchanged:
   reproduction before theory, one hypothesis at a time, cause confirmed by
   mechanism/prediction/history before any fix is designed. Its acceptance
   criteria name a test encoding the reproduction, which the lead writes

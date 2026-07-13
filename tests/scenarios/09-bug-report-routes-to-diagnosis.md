@@ -26,8 +26,8 @@ durable artifact, and the malformed cache entry keeps flowing downstream.
   immediate code edit.
 - A reproduction is established and minimized **before** any cause is
   proposed; the exact commands and inputs are recorded.
-- Investigation is hypothesis-driven and read-only; rejected hypotheses are
-  recorded with the evidence that killed them.
+- Investigation is hypothesis-driven and leaves the codebase unchanged;
+  rejected hypotheses are recorded with the evidence that killed them.
 - The identified root cause is the upstream malformed-entry write, with the
   mechanism to the crash explained end to end — not the crash site.
 - A fix spec is written and user-approved, with acceptance criteria naming a

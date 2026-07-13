@@ -1,6 +1,6 @@
 ---
 name: leading-implementation
-description: Use when implementing an approved design spec with an execution map — after mapping-work chooses an execution mode. One persistent lead carries the implementation end to end, retaining context, delegating selectively, and owning integration and the final report.
+description: Use when implementing an approved spec (design or fix) with an execution map — after mapping-work chooses an execution mode. One persistent lead carries the implementation end to end, retaining context, delegating selectively, and owning integration and the final report.
 ---
 
 # Leading Implementation
@@ -12,7 +12,7 @@ not throw it away by fragmenting coupled work across fresh contexts.
 
 ## The lead's contract
 
-- The **approved design spec** is the product and architecture contract.
+- The **approved spec** is the product and architecture contract.
   What must be built does not change without going back to the user.
 - The **execution map** is a living coordination aid. Reshape it freely when
   evidence demands; record why.
