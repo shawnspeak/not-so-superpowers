@@ -32,8 +32,11 @@ Relevant parameters:
 The Agent tool accepts a `model` parameter (for example `haiku`, `sonnet`,
 `opus`). Map the core skill's tiers:
 
-- lesser model → `haiku` (or the smallest available) for bounded
-  low-ambiguity work;
+- lesser model → match how far down-tier to the work's shape: `haiku` (or
+  the smallest available) for locating, summarizing, and high-volume
+  mechanical sweeps; `sonnet` for bounded implementation — an isolated
+  package behind a defined interface, or making a pre-written failing test
+  suite pass — where the smallest tier tends to underdeliver;
 - peer → `opus` or the session's own model for ambiguous, coupled, or
   consequential work; omitting `model` typically inherits the lead's model,
   which is the safe default when unsure;

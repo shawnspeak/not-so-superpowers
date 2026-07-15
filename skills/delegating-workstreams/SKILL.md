@@ -44,6 +44,12 @@ Every brief contains, explicitly:
 A brief the assigned model cannot succeed at safely is a lead error, not a
 delegate error. Shape the brief to the tier (below).
 
+**Signal, not file dumps.** A reconnaissance delegate returns conclusions —
+what was found, where, with paths and line references — never pasted file
+contents. The lead delegates reconnaissance precisely to keep bulk content
+out of its own context; a delegate that returns raw dumps has spent the
+handoff and handed the cost back anyway. Say so in the return format.
+
 **Tests as the contract.** When acceptance criteria are crisp and testable,
 the strongest brief encodes them as failing tests before delegation: the
 objective is "make these tests pass," the tests are the acceptance criteria,
