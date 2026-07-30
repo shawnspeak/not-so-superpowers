@@ -63,10 +63,10 @@ resuming this work must be able to find it from the map alone.
 
 Size packages by outcome, never by duration. A package is also the unit of
 commit — the lead commits each one as its verification passes — so shape
-every package as an independently committable slice. Do not decompose coherent work
-into mechanical two-to-five-minute actions; a package that is "rename the
-field, then update the callers, then fix the tests" is one package, not
-three. Do not judge a package's quality by how long it takes.
+every package as an independently committable slice. Do not decompose
+coherent work into mechanical two-to-five-minute actions; a package that is
+"rename the field, then update the callers, then fix the tests" is one
+package, not three.
 
 The map is intentionally revisable. When implementation evidence contradicts
 it — a seam that isn't there, a dependency that runs the other way — update

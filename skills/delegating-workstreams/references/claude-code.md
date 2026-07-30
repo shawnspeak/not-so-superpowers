@@ -23,9 +23,8 @@ Relevant parameters:
   without the result. Launch independent delegates in one message so they
   run concurrently.
 - `isolation: "worktree"` — gives an editing delegate its own git worktree.
-  Required for concurrent editing delegates, so partial work never shares a
-  tree with the lead's commits or another delegate's edits; unnecessary for
-  read-only delegates.
+  Required for concurrent editing delegates, per the core skill's ownership
+  rules; unnecessary for read-only delegates.
 
 ## Select a capability tier
 
@@ -65,9 +64,3 @@ and must carry the full brief again.
 Prefer structural enforcement over instructions: use the `Explore` agent
 type, or a project agent whose `tools` frontmatter excludes Edit/Write.
 Stating "do not edit" in the brief is the fallback, not the mechanism.
-
-## When facilities are missing
-
-Restricted environments may lack the Agent tool, background execution, or
-worktrees. The core skill's fallback applies: the lead does the work
-sequentially with the same ownership and evidence boundaries.

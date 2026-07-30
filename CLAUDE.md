@@ -51,7 +51,10 @@ language is the engineering.
   review, architecture-changing diagnosis, and security calls. When
   acceptance criteria are crisp and testable, failing tests written before
   implementation are the preferred down-tier contract — "make these pass
-  without modifying them" makes done machine-checkable. Keep new prose
+  without modifying them" makes done machine-checkable. The brief demands a
+  general solution rather than code fitted to the tests, and the lead
+  inspects returned diffs for test-tailored shortcuts — down-tier delegates
+  are the population most prone to overfitting the contract. Keep new prose
   compatible with this split.
 - **Independent review gates consequential completion.** The lead's own
   re-read may cover routine boundaries, but the review before consequential
@@ -59,8 +62,16 @@ language is the engineering.
   delegate or peer model, up-tier where warranted. When the harness offers
   no independent reviewer, the lead's fallback self-review must be declared
   in the completion report; degraded independence is reported, never silent.
+  Reviewers report every material finding, labeled — filtering is the
+  lead's call, made with the labels in view, never the reviewer's applied
+  silently. The completion close-out checklist lives in
+  `leading-implementation` (review can be skipped for low-risk work;
+  completion cannot) and runs once — review feeds it, never replaces it.
 - **Spec is contract, map is coordination aid.** Skills must never let the
-  spec change silently; map reshaping is free but recorded.
+  spec change silently; map reshaping is free but recorded. The contract
+  bounds ambition as well as scope: the lead builds the simplest
+  implementation that satisfies the acceptance criteria — abstractions or
+  defenses the spec does not demand are scope creep, not diligence.
 
 ## Hard conventions (enforced by tests/validate-structure.sh)
 

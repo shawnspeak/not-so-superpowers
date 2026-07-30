@@ -19,6 +19,9 @@ not throw it away by fragmenting coupled work across fresh contexts.
 - Implement **coherent vertical slices** — a package's outcome, end to end —
   rather than horizontal layers or micro-steps. Keep tightly coupled work in
   your own context.
+- Build the **simplest implementation that satisfies the acceptance
+  criteria**. Abstractions, configurability, and defensive code the spec
+  does not demand are scope creep, not diligence.
 - Run **focused verification after each meaningful slice**: the package's
   own acceptance criteria and verification commands, not the whole world.
 - **Replan when evidence invalidates an assumption.** If the evidence only
@@ -41,10 +44,9 @@ Check the workspace for pre-existing uncommitted changes at the same time.
 They belong to the user: never stage them into a package commit, never
 revert them, leave them as found. If any overlap files the map expects the
 implementation to touch, resolve the conflict with the user before the
-first change rather than working around it. Resolving overlaps up front is
-also what keeps a resumed session unambiguous: from then on, an uncommitted
-change inside a package's scope is implementation work in progress, and
-anything outside it is the user's and left alone.
+first change. From then on the tree is unambiguous, even to a resumed
+session: an uncommitted change inside a package's scope is work in
+progress; anything outside it is the user's.
 
 ## Commit at package boundaries
 
@@ -54,8 +56,7 @@ before moving on — one atomic, green checkpoint per package, written in the
 project's commit style as read from its history rather than a style imposed
 on it. Do not let verified work accumulate uncommitted across package
 boundaries: committed checkpoints are what let a resumed session recover
-the work, keep a failed later package revertible, and give the aggregate
-inspection at completion stable points to compare.
+the work.
 
 A package commit is path-scoped. Stage only the files the package's work
 actually touched, and inspect the staged diff before committing to confirm
@@ -85,11 +86,10 @@ inspect what comes back and you integrate it.
 When a package's acceptance criteria are crisp and testable, consider making
 tests the delegation contract: encode the criteria as failing tests before
 any implementation exists, then hand "make these pass without modifying
-them" to a lesser-tier delegate. A failing test suite is the
-lowest-ambiguity brief a delegate can receive — done is machine-checked, not
-argued. Write the tests yourself or delegate their derivation as its own
-bounded objective; never assign derivation and implementation to the same
-delegate.
+them" to a lesser-tier delegate — the lowest-ambiguity brief there is, since
+done is machine-checked, not argued. The full contract — who derives the
+tests, the general-solution requirement, the overfitting inspection on
+returned work — lives in `delegating-workstreams`.
 
 ## Review at boundaries
 
@@ -118,11 +118,12 @@ The lead owns shared interfaces, integration, aggregate verification, and
 the final report. Before declaring done:
 
 1. run the relevant full validation, not just per-slice checks;
-2. inspect the aggregate diff as a whole;
+2. inspect the aggregate diff as a whole — integration seams, accidental
+   inclusions, leftover scaffolding;
 3. check every acceptance criterion in the spec against evidence;
 4. report what changed, the evidence, and any remaining uncertainty —
-   explicitly. Never infer success solely from a delegate's claim or a
-   single passing command.
+   explicitly. Never infer success solely from a delegate's claim, a
+   reviewer's approval, or a single passing command.
 
 Completion leaves the implementation's changes fully committed: work that
 exists only in an uncommitted working tree is not done. Pre-existing

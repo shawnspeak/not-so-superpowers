@@ -53,36 +53,31 @@ Evaluate in this order, so scarce attention lands on what matters most:
 4. **Security, concurrency, migration, and operational risks** — where the
    change touches them.
 5. **Maintainability and fit** — does it follow the repository's
-   conventions, or fight them?
+   conventions, or fight them? Is it over-built — abstractions, options,
+   or defenses beyond what the spec demands?
 6. **Adequacy of verification** — do the tests and checks actually establish
    the acceptance criteria, or just pass?
 
 ## Findings
 
-Classify material findings clearly:
+Report every material finding, classified:
 
 - **Blocking** — violates the spec, breaks correctness, or introduces a
   risk in category 2–4. Must be resolved and **reverified** before
   completion; rerun the focused verification the fix affects.
 - **Material, non-blocking** — worth fixing, does not gate completion;
   record the decision either way.
-- **Minor** — note briefly or drop; do not let it crowd out the above.
+- **Minor** — note briefly; do not let it crowd out the above.
 
 A finding without a concrete failure scenario or spec citation is an
-opinion; label it as such or omit it.
+opinion; report it labeled as such rather than dropping it. The reviewer
+reports and labels; deciding what to act on is the lead's filter, applied
+with the labels in view — never the reviewer's, applied silently.
 
 ## After review: the lead closes out
 
-Review does not end the work. The lead then:
-
-1. runs the relevant **full validation**, not only the checks the review
-   touched;
-2. inspects the **aggregate diff** as a whole — integration seams,
-   accidental inclusions, leftover scaffolding;
-3. checks **each acceptance criterion** in the spec against evidence;
-4. reports what changed, the evidence for it, and remaining uncertainty
-   explicitly.
-
-Verification output and the aggregate diff are evidence, not substitutes
-for checking the acceptance criteria. Never infer success solely from a
-delegate's claim, a reviewer's approval, or a single passing command.
+Review does not end the work. The lead runs the completion sequence in
+`leading-implementation` — full validation, aggregate diff, acceptance
+criteria against evidence, explicit report — once, at completion, not
+repeated after every review. A reviewer's approval is input to that
+close-out, never a substitute for it.

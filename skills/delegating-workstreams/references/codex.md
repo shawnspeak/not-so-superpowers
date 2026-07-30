@@ -64,13 +64,6 @@ delegate's previous report as context.
 
 Codex has no built-in worktree isolation for delegates. When parallel
 editing workstreams are justified, create git worktrees or branches manually
-and point each `codex exec --cd` at its own copy. Strict file partitioning
-in a shared tree is not sufficient: a delegate's partial work would sit in
-the same tree the lead commits and verifies from. If worktrees cannot be
-created, run the editing delegates one at a time.
-
-## When facilities are missing
-
-If `codex exec`, sandbox flags, or model selection are unavailable, the lead
-executes sequentially with the same ownership, evidence, and review
-boundaries. Never fake parallelism the harness cannot supervise.
+and point each `codex exec --cd` at its own copy — file partitioning in a
+shared tree is not a substitute, per the core skill's ownership rules. If
+worktrees cannot be created, run the editing delegates one at a time.

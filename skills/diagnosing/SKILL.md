@@ -101,11 +101,10 @@ It records:
   test that fails before the fix and passes after, wherever the codebase
   makes that feasible.
 
-Writing that failing test is deliberately left to implementation —
-diagnosis leaves the codebase unchanged — but the spec must describe the
-reproduction
-precisely enough that encoding it requires no rediscovery. Downstream, that
-test is the preferred delegation contract.
+Writing that failing test is deliberately left to implementation, but the
+spec must describe the reproduction precisely enough that encoding it
+requires no rediscovery. Downstream, that test is the preferred delegation
+contract.
 
 Self-review the spec against the investigation for anything found but
 omitted, anything asserted but never evidenced, and internal

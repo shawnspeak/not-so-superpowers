@@ -46,18 +46,22 @@ delegate error. Shape the brief to the tier (below).
 
 **Signal, not file dumps.** A reconnaissance delegate returns conclusions —
 what was found, where, with paths and line references — never pasted file
-contents. The lead delegates reconnaissance precisely to keep bulk content
-out of its own context; a delegate that returns raw dumps has spent the
-handoff and handed the cost back anyway. Say so in the return format.
+contents, which hand the context cost back to the lead. Say so in the
+return format.
 
 **Tests as the contract.** When acceptance criteria are crisp and testable,
 the strongest brief encodes them as failing tests before delegation: the
 objective is "make these tests pass," the tests are the acceptance criteria,
 and verification is running them. State explicitly that the delegate must
 not modify the tests — a returned diff that edits them is a rejected result,
-not a negotiation. Derive the tests in the lead's context or delegate the
-derivation as its own bounded objective, never to the delegate that will
-implement against them.
+not a negotiation. Require a general solution in the same breath: the
+delegate implements the logic the tests exercise, not code tailored to
+their specific inputs, and reports a test it believes is wrong rather than
+working around it. Inspect the returned diff for test-tailored shortcuts —
+hardcoded expected values, special-cased inputs — before accepting it.
+Derive the tests in the lead's context or delegate the derivation as its
+own bounded objective, never to the delegate that will implement against
+them.
 
 ## Ownership rules
 
@@ -89,14 +93,12 @@ important the overall project feels.
 **Prefer a lesser (faster, cheaper) model** for bounded, low-ambiguity,
 low-risk work:
 
-- locating files, symbols, and patterns;
-- summarizing a contained subsystem;
-- running prescribed commands and collecting output;
+- locating and summarizing: files, symbols, patterns, contained subsystems;
+- running prescribed commands and collecting evidence;
 - isolated changes behind an already-defined interface;
 - implementation against a pre-written failing test suite it may not modify;
 - routine tests written from explicit criteria;
-- mechanical consistency checks;
-- evidence collection.
+- mechanical consistency checks.
 
 **Use a peer or frontier model** for:
 
