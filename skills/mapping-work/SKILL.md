@@ -1,11 +1,11 @@
 ---
 name: mapping-work
-description: Use when an approved spec exists and needs to become an execution strategy — after brainstorming produces a design spec or diagnosing produces a fix spec, before implementation starts. Chooses an execution mode from repository evidence and produces outcome-sized work packages.
+description: Use when an approved spec exists and needs to become an execution strategy — after brainstorming, diagnosing, or triaging-findings produces an approved spec, before implementation starts. Chooses an execution mode from repository evidence and produces outcome-sized work packages.
 ---
 
 # Mapping Work
 
-Translate an approved spec — design or fix — into a repository-grounded
+Translate an approved spec — design, fix, or triage — into a repository-grounded
 execution strategy. The spec says what must be built; this skill decides how the work
 is shaped. Repository evidence — not habit, not a fixed pipeline — determines
 the topology.

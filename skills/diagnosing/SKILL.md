@@ -19,7 +19,9 @@ This skill is for problems brought as the task — a bug report, a regression,
 a failure the user wants explained. Failures that surface mid-implementation
 (a red verification, a delegate's broken result) stay with the lead under
 `leading-implementation`, which already routes stuck or architecture-changing
-diagnosis through delegation.
+diagnosis through delegation. A batch of findings arriving from an external
+review enters through `triaging-findings`, which routes an individual
+finding here when its symptom is real but its mechanism is unknown.
 
 ## Ground in what exists
 

@@ -19,6 +19,8 @@ and integrates the result.
 - high-volume mechanical sweeps (bulk renames, repetitive scaffolding,
   boilerplate) that need volume, not the lead's context;
 - adversarial test derivation against stated acceptance criteria;
+- verification or refutation of a single review finding against its stated
+  failure scenario;
 - independent diagnosis of a failure the lead is stuck on;
 - review of a completed logical change.
 
@@ -98,6 +100,8 @@ low-risk work:
 - isolated changes behind an already-defined interface;
 - implementation against a pre-written failing test suite it may not modify;
 - routine tests written from explicit criteria;
+- verifying a review finding whose failure scenario is mechanically
+  checkable;
 - mechanical consistency checks.
 
 **Use a peer or frontier model** for:

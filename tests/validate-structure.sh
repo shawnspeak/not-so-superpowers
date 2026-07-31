@@ -10,7 +10,7 @@ FAIL=0
 fail() { echo "FAIL: $*"; FAIL=1; }
 pass() { echo "  ok: $*"; }
 
-EXPECTED_SKILLS="brainstorming diagnosing mapping-work leading-implementation delegating-workstreams reviewing-work"
+EXPECTED_SKILLS="brainstorming diagnosing triaging-findings mapping-work leading-implementation delegating-workstreams reviewing-work"
 
 echo "== Skill presence and frontmatter =="
 for skill in $EXPECTED_SKILLS; do

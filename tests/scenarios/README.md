@@ -23,6 +23,8 @@ Across the suite, the agent must:
 - preserve one lead's context and accountability;
 - produce outcome-sized work packages, not time-sliced task lists;
 - select delegate model capability proportional to ambiguity and risk;
+- verify inbound review findings before acting on them, with evidence-backed
+  refutation a legitimate outcome;
 - ground completion in evidence checked against the approved spec.
 
 ## Scenario index
@@ -38,6 +40,7 @@ Across the suite, the agent must:
 | `07-failed-assumption-replan.md` | execution map updated vs. spec conflict escalated |
 | `08-consequential-completion-review.md` | independent review + aggregate verification before done |
 | `09-bug-report-routes-to-diagnosis.md` | root cause confirmed via reproduction before any fix |
+| `10-invalid-finding-refuted-not-fixed.md` | inbound findings verified and dispositioned on evidence, not obeyed |
 
 ## Structural validation
 

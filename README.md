@@ -1,6 +1,6 @@
 # not-so-superpowers
 
-A portable collection of six skills for Codex and Claude Code that keeps
+A portable collection of seven skills for Codex and Claude Code that keeps
 the strongest part of Superpowers — collaborative design — and replaces its
 mandatory detailed-plan, task-per-agent execution pipeline with adaptive
 orchestration suited to frontier models.
@@ -20,6 +20,7 @@ conventions for changing them.
 |---|---|
 | [`brainstorming`](skills/brainstorming/SKILL.md) | Collaborative design: clarify, compare approaches, produce an approved written spec |
 | [`diagnosing`](skills/diagnosing/SKILL.md) | Root-cause investigation: reproduce, confirm the cause with evidence, produce an approved fix spec |
+| [`triaging-findings`](skills/triaging-findings/SKILL.md) | External review triage: verify every finding, sweep for siblings, produce an approved triage spec with dispositions and replies |
 | [`mapping-work`](skills/mapping-work/SKILL.md) | Inspect the repo, choose an execution mode, produce 3–8 outcome-sized work packages |
 | [`leading-implementation`](skills/leading-implementation/SKILL.md) | One persistent lead implements end to end, replans from evidence, owns integration |
 | [`delegating-workstreams`](skills/delegating-workstreams/SKILL.md) | Bounded delegate briefs, ownership rules, capability-tier model selection |
@@ -27,7 +28,9 @@ conventions for changing them.
 
 Workflow: an idea goes through `brainstorming` to an approved design spec; a
 bug with an unknown cause goes through `diagnosing` to an approved fix spec;
-either spec goes through `mapping-work` to an execution mode and living map;
+a batch of external review findings goes through `triaging-findings` to an
+approved triage spec; any of these specs goes through `mapping-work` to an
+execution mode and living map;
 `leading-implementation` carries it to completion, using
 `delegating-workstreams` when work genuinely branches and `reviewing-work`
 at risk boundaries and before consequential completion.
@@ -82,6 +85,7 @@ and review boundaries.
 
 - Structural: `tests/validate-structure.sh` — frontmatter, placeholders,
   referenced files, platform neutrality, body size.
-- Behavioral: `tests/scenarios/` — nine baseline-vs-forward scenarios
+- Behavioral: `tests/scenarios/` — ten baseline-vs-forward scenarios
   covering execution-mode selection, tier selection, coupling recovery,
-  replanning, root-cause routing, and evidence-based completion.
+  replanning, root-cause routing, review-finding triage, and evidence-based
+  completion.

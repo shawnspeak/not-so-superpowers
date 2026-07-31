@@ -1,27 +1,36 @@
 # CLAUDE.md
 
-Portable six-skill orchestration stack for Claude Code and Codex:
-`brainstorming` (design) or `diagnosing` (root-cause investigation) →
-`mapping-work` → `leading-implementation`, with `delegating-workstreams`
-and `reviewing-work` as support skills. The product
+Portable seven-skill orchestration stack for Claude Code and Codex:
+`brainstorming` (design), `diagnosing` (root-cause investigation), or
+`triaging-findings` (external review triage) → `mapping-work` →
+`leading-implementation`, with `delegating-workstreams` and
+`reviewing-work` as support skills. The product
 of this repo is skill *prose* — there is no application code. Editing here
 means editing instructions that a frontier model will follow, so precision of
 language is the engineering.
 
 ## Design intent (why the prose says what it says)
 
-- **Two entry points, one downstream contract.** Features and design-shaped
+- **Three entry points, one downstream contract.** Features and design-shaped
   problems enter through `brainstorming`; defects with an unknown cause
-  enter through `diagnosing`. Both end in an approved spec file that
-  `mapping-work` consumes identically — the pipeline downstream of the spec
-  never forks. Diagnosis is evidence-driven and leaves the codebase
+  enter through `diagnosing`; batches of external review findings — a PR
+  review, a scanner report, a pasted list — enter through
+  `triaging-findings`. All end in an approved spec file that `mapping-work`
+  consumes identically — the pipeline downstream of the spec never forks. Diagnosis is evidence-driven and leaves the codebase
   unchanged:
   reproduction before theory, one hypothesis at a time, cause confirmed by
   mechanism/prediction/history before any fix is designed. Its acceptance
   criteria name a test encoding the reproduction, which the lead writes
   during implementation — dovetailing with the failing-tests-first
-  delegation contract below. Never let the two entry skills blur: design
-  compares legitimate alternatives; diagnosis converges on one truth.
+  delegation contract below. Triage is likewise evidence-driven and leaves
+  the codebase unchanged: inbound findings are testimony, not truth, so
+  every finding is verified — confirmed, refuted, or unverifiable — before
+  it is dispositioned, evidence-backed refutation is a first-class outcome,
+  and confirmed findings are treated as samples of a class and swept for
+  siblings. Findings needing root-cause work, design comparison, or a
+  contract change escalate to `diagnosing`, `brainstorming`, or the user.
+  Never let the entry skills blur: design compares legitimate alternatives;
+  diagnosis converges on one truth; triage passes verdicts on claims.
 - **One persistent lead, selective delegation.** The stack deliberately
   rejects Superpowers-style task-per-agent pipelines. Context retained by a
   single lead is treated as the most valuable asset; never add prose that
@@ -93,10 +102,11 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
   (`claude-code.md`, `codex.md`). The claude-code reference may name model
   tiers (`haiku`/`opus`/`fable`); the codex reference must NOT hard-code
   model names — it tells the lead to read them from the user's Codex config.
-- **Cross-skill consistency:** `leading-implementation` routes all delegation
-  through `delegating-workstreams`, so anything declared delegable in one
-  must appear in the other's suitable-objectives / tier lists. When editing
-  delegation prose, grep both skills.
+- **Cross-skill consistency:** `leading-implementation` and
+  `triaging-findings` route all delegation through
+  `delegating-workstreams`, so anything declared delegable in one must
+  appear in the other's suitable-objectives / tier lists. When editing
+  delegation prose, grep all of them.
 - Every skill degrades gracefully: if subagents, model selection, or
   worktrees are unavailable, the lead does the work sequentially with the
   same ownership, evidence, and review boundaries. Never add a step that
@@ -109,7 +119,7 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
 ## Testing
 
 - Structural: `tests/validate-structure.sh` (fast, run always).
-- Behavioral: `tests/scenarios/*.md` — nine baseline-vs-forward scenarios
+- Behavioral: `tests/scenarios/*.md` — ten baseline-vs-forward scenarios
   run *manually* against real harness sessions; they are prompts plus
   success criteria, not executable tests. If a skill change alters a
   behavior a scenario probes (execution-mode choice, tier selection,
