@@ -8,7 +8,9 @@ description: Use when the implementation lead decides to hand a bounded objectiv
 Use the harness's native subagent facilities only for bounded objectives that
 benefit from a separate context. Delegation transfers work, not
 accountability: the lead shapes the brief, inspects the returned evidence,
-and integrates the result.
+and integrates the result. Invoking this stack is the user's permission to
+use subagents: never skip a delegation these skills direct — reviews
+included — on the grounds that the user did not explicitly ask for one.
 
 ## Suitable objectives
 
