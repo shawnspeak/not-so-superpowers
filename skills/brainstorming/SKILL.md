@@ -57,9 +57,14 @@ wherever this project keeps design documents). The spec records goal, design
 decisions, failure behavior, non-goals, and acceptance criteria — the things
 that stay true regardless of how implementation unfolds.
 
+The spec is a contract, not a transcript: every sentence should bind the
+implementation. Record the chosen approach and why in brief; rejected
+alternatives earn a line only when the rejection itself is a constraint.
+
 Self-review the written spec before showing it: check it against the
 conversation for anything agreed but omitted, anything included but never
-agreed, and internal contradictions. Fix what you find.
+agreed, and internal contradictions — and cut prose that describes rather
+than binds. Fix what you find.
 
 Then require the user to review the written document itself. Conversational
 agreement is not approval of the spec; the file is the contract.
