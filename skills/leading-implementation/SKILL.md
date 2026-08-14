@@ -122,8 +122,9 @@ the final report. Before declaring done:
    inclusions, leftover scaffolding;
 3. check every acceptance criterion in the spec against evidence;
 4. report what changed, the evidence, and any remaining uncertainty —
-   explicitly. Never infer success solely from a delegate's claim, a
-   reviewer's approval, or a single passing command.
+   explicitly and in brief, citing evidence rather than replaying it.
+   Never infer success solely from a delegate's claim, a reviewer's
+   approval, or a single passing command.
 
 Completion leaves the implementation's changes fully committed: work that
 exists only in an uncommitted working tree is not done. Pre-existing

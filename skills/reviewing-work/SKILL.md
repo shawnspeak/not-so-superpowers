@@ -58,6 +58,9 @@ Evaluate in this order, so scarce attention lands on what matters most:
 6. **Adequacy of verification** — do the tests and checks actually establish
    the acceptance criteria, or just pass?
 
+The order structures attention, not the report: findings are the output,
+and a category with nothing material earns silence, not a section.
+
 ## Findings
 
 Report every material finding, classified:

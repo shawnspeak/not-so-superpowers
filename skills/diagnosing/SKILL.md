@@ -108,9 +108,15 @@ spec must describe the reproduction precisely enough that encoding it
 requires no rediscovery. Downstream, that test is the preferred delegation
 contract.
 
+The spec is a contract, not an investigation log: every sentence either
+binds the fix or carries evidence the next reader needs. Spend precision
+on the reproduction; elsewhere, cite evidence rather than replaying the
+investigation.
+
 Self-review the spec against the investigation for anything found but
 omitted, anything asserted but never evidenced, and internal
-contradictions. Then require the user to review the written document
+contradictions — and cut prose that neither binds nor carries evidence.
+Then require the user to review the written document
 itself. Conversational agreement is not approval; the file is the contract.
 
 ## Handoff

@@ -118,6 +118,11 @@ and fix specs). It records:
 - non-goals — the declined and deferred findings, in brief;
 - escalations — which findings left for their own specs, and where.
 
+Per-finding entries are register rows, not essays: a verdict's evidence is
+a citation that closes the question, not a replay of the verification. The
+spec's completeness lives in covering every finding, not in the length of
+each entry.
+
 Self-review the spec against the inventory: every inbound finding has an
 entry, every verdict cites evidence, no disposition contradicts its
 verdict. Then require the user to review the written document itself.
