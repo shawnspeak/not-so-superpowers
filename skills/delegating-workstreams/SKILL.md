@@ -51,7 +51,8 @@ the lead delegates **up** for the judgments that warrant it.
 - adversarial test derivation against acceptance criteria;
 - independent diagnosis of a failure the lead is stuck on, especially one
   that may change the architecture;
-- adversarial review and consequential final review.
+- review — at routine boundaries, and adversarial or consequential final
+  review.
 
 Never delegate small sequential edits to code the lead already holds, work
 whose interface is still being designed, or anything tightly coupled to what

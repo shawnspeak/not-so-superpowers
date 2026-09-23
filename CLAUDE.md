@@ -56,11 +56,13 @@ language is the engineering.
   file, not conversation; a light contract is promoted to a file — the lead
   adding its Plan — the moment that applies. The lead commits the spec file
   as the workspace's first commit, or as the next commit when promoted
-  mid-work. This includes where the work lives: the Plan records the
-  workspace (branch or worktree) so a resumed session finds the work in
-  progress without repo-state archaeology — the skills follow project
-  branching convention rather than imposing one, and absent a convention
-  package commits never land on the default branch. The history is a durable
+  mid-work, and recommits it with the next package whenever the Plan is
+  reshaped, so the committed spec never lags the plan in use. This
+  includes where the work lives: the Plan records the workspace (branch or
+  worktree) so a resumed session finds the work in progress without
+  repo-state archaeology — the skills follow project branching convention
+  rather than imposing one, and absent a convention package commits never
+  land on the default branch. The history is a durable
   artifact too: the lead commits each work package as its verification
   passes (in the project's commit style, read from its history), staging
   only the package's own paths, so verified work is never stranded in an

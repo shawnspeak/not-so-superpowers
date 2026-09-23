@@ -16,7 +16,8 @@ contexts.
 - The approved **contract** says what must be built. It does not change
   without going back to the user.
 - The **plan** is a coordination aid. Reshape it freely when evidence
-  demands, and record why.
+  demands, and record why; at the full tier the revised spec file rides the
+  next commit, so the committed Plan never lags the one the lead works from.
 - Build the **simplest implementation that satisfies the acceptance
   criteria**. Abstractions, configurability, and defenses the contract does
   not demand are scope creep, not diligence.
@@ -110,7 +111,8 @@ At the direct tier, if the stack engaged on its own and the user did
 neither, ask once before the first commit. Pushing, merging, and rewriting
 history remain the user's call.
 
-Commits are path-scoped: stage only the files the package touched, and
+Commits are path-scoped: stage only the files the package touched — plus
+the spec file when its Plan changed since it was last committed — and
 inspect the staged diff to confirm it holds exactly that work — no user
 changes, no delegate's partial work. Only the lead writes history on the
 implementation workspace. Never commit failing or unverified work as a

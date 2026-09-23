@@ -61,7 +61,7 @@ An approved contract goes to `leading-implementation`. Do not mandate a
 detailed implementation plan or a task-per-agent workflow as a condition of
 finishing design; how the work is shaped is the lead's decision, made
 against repository evidence. If the design is too large to be one coherent
-unit, recommend splitting it into several contracts.
+unit, split the contract per `routing-work`.
 
 ## Portability
 

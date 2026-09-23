@@ -72,9 +72,10 @@ Alternatively, skip the plugin and copy skill directories into
 `<repo>/.claude/skills/` (per-project) or `~/.claude/skills/` (personal).
 
 **Upgrading from 0.7 or earlier** — `mapping-work` was folded into
-`leading-implementation`. Plugin installs pick this up on update; copied
-installs (including `./install-codex.sh` without `--link`) should delete the
-stale `mapping-work` skill directory.
+`leading-implementation`. Plugin installs pick this up on update. Re-run
+`./install-codex.sh` (with or without `--link`): it removes the stale
+`mapping-work` copy or symlink. Hand-copied installs should delete that
+directory themselves.
 
 **Codex** — Codex CLI has no plugin/marketplace mechanism; it discovers
 skills from `.agents/skills/` (project) or `~/.agents/skills/` (user). Run

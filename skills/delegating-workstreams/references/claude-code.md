@@ -53,9 +53,11 @@ skill's tiers:
   mechanical sweeps; `sonnet` for bounded implementation — an isolated
   package behind a defined interface, or making a pre-written failing test
   suite pass — where the smallest tier tends to underdeliver;
-- peer → `opus` or the session's own model for ambiguous, coupled, or
-  consequential work; omitting `model` typically inherits the lead's model,
-  which is the safe default when unsure;
+- peer → `opus`, or the session's own model when the lead runs on `opus`
+  or above, for ambiguous, coupled, or consequential work; omitting `model`
+  typically inherits the lead's model, which is the safe default when the
+  lead is at least a peer-tier model. A lead running on a lesser model
+  never inherits itself for peer work — it names `opus` or above;
 - frontier → a top-tier model such as `fable`, where available, when the
   lead itself runs below the frontier and needs to delegate up — adversarial
   final review, architecture-changing diagnosis, security judgment.

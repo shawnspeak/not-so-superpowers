@@ -21,6 +21,24 @@ done
 
 mkdir -p "$TARGET"
 
+# Prune what an earlier install left behind: symlinks into this repo's
+# skills/ (dangling once a skill is removed upstream) and copies of skills
+# this stack no longer ships.
+REMOVED_SKILLS="mapping-work"
+for entry in "$TARGET"/*; do
+  [ -e "$entry" ] || [ -L "$entry" ] || continue
+  name="$(basename "$entry")"
+  stale=0
+  if [ -L "$entry" ]; then
+    case "$(readlink "$entry")" in "$ROOT/skills/"*) stale=1 ;; esac
+  fi
+  case " $REMOVED_SKILLS " in *" $name "*) stale=1 ;; esac
+  if [ "$stale" -eq 1 ]; then
+    rm -rf "$entry"
+    [ -d "$ROOT/skills/$name" ] || echo "removed stale $entry"
+  fi
+done
+
 for dir in "$ROOT"/skills/*/; do
   skill="$(basename "$dir")"
   dest="$TARGET/$skill"

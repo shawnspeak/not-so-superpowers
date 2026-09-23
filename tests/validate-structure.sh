@@ -65,16 +65,19 @@ done
 echo "== Cross-skill references resolve =="
 # Any backticked bare lowercase token in a SKILL.md body is a skill name;
 # it must be one of the expected skills (catches references to removed skills).
+# The body is everything after the closing frontmatter delimiter.
+XREF_FAIL=0
 for md in "$SKILLS_DIR"/*/SKILL.md; do
   skill="$(basename "$(dirname "$md")")"
-  for ref in $(grep -ohE '`[a-z]+(-[a-z]+)*`' "$md" | tr -d '`' | sort -u); do
+  for ref in $(awk 'BEGIN{n=0} /^---$/ && n<2 {n++; next} n>=2' "$md" \
+      | grep -oE '`[a-z]+(-[a-z]+)*`' | tr -d '`' | sort -u); do
     case " $EXPECTED_SKILLS " in
       *" $ref "*) : ;;
-      *) fail "$skill: references unknown skill '$ref'" ;;
+      *) fail "$skill: references unknown skill '$ref'"; XREF_FAIL=1 ;;
     esac
   done
 done
-pass "cross-skill references checked"
+[ "$XREF_FAIL" -eq 0 ] && pass "cross-skill references resolve"
 
 echo "== Core skills are platform-neutral =="
 # Core SKILL.md bodies may name harnesses when pointing at references/, but
