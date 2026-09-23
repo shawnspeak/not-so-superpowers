@@ -41,10 +41,10 @@ unknown currencies and reconciliation compares balances per currency.
 **Mode:** naturally partitioned — importer and reconciliation are separate
 modules with no shared code.
 
-- **P1 Import validation** (delegate A, owns `ledger/importer.py`, tests) —
-  currency required and validated on import.
-- **P2 Per-currency reconciliation** (delegate B, owns `ledger/reconcile.py`,
-  tests) — balances compared per currency.
+- **P1 Import validation** (delegate A, owns `ledger/importer.py` and
+  `tests/test_importer.py`) — currency required and validated on import.
+- **P2 Per-currency reconciliation** (delegate B, owns `ledger/reconcile.py`
+  and `tests/test_reconcile.py`) — balances compared per currency.
 P
 git add -A && git commit -qm "Ledger modules and multicurrency spec"
 git checkout -q -b feat/multicurrency

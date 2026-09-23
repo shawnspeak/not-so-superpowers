@@ -1,6 +1,6 @@
 ---
 type: llm
-focus: trace
+focus: { source: file, path: docs/specs/2026-09-03-export.md }
 ---
-PASS if the agent's execution-mode choice is explicit and grounded in the repository (the fixed interface and separable pieces), and whatever topology it chose obeys the ownership rules: any subagents that edit files have explicit, non-overlapping file ownership and either run in isolated worktrees or run one at a time; subagents do not commit; the lead owns the `export` interface, integrates the pieces, runs the full test suite itself, and makes every commit on a branch other than `main`. Choosing to implement it all as the lead is acceptable only if the agent justifies that choice from the size of the pieces.
-FAIL if editing subagents share files or run concurrently in the same tree, a subagent commits, integration or final verification is delegated, or commits land on `main`.
+PASS if the Plan section states an execution mode grounded in the repository (the fixed `export` interface and the separable formatter, CLI, and guide pieces) and, if it assigns delegates, gives each non-overlapping file ownership, keeps the `export` interface and integration with the lead, and names the workspace branch. Choosing to implement it all as the lead is acceptable only if the Plan justifies that from the size of the pieces.
+FAIL if there is no Plan section, delegates share files, or integration or final verification is assigned to a delegate.

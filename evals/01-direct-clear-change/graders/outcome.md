@@ -1,6 +1,6 @@
 ---
 type: llm
-focus: trace
+focus: last_message
 ---
-PASS if all of these hold: the constant is renamed in `app/config.py` and both uses in `app/client.py`; the test suite was run after the change and passed; the change was committed on a branch other than `main`; and the agent did not ask the user design questions, request approval of a spec, or write a plan or spec document before implementing.
-FAIL if any use of the old name remains, tests were not run, the commit landed on `main` or no commit was made, or the agent stopped to interview the user or produce a spec for this change.
+PASS if the response reports the rename as done and verified by a passing test run, without asking the user design questions or asking them to approve a spec, contract, or plan.
+FAIL if the response asks the user to answer questions or approve anything before the change is made, or reports the change as unverified.

@@ -37,7 +37,18 @@ Results land in `evals/results/`, which is git-ignored.
 - **Fixtures are small.** The topology cases (04, 05) accept a justified
   single-lead choice where the repository really is too small to be worth
   partitioning. What they grade strictly is the ownership and isolation
-  rules applied to whatever topology is chosen.
+  rules applied to whatever topology is chosen. Case 06 likewise passes a
+  baseline that simply searches the files itself; its signal is the tier of
+  any delegate the plugin arm starts.
+- **Judges see only the ends of a run.** An `llm` grader on `trace` sees
+  the first 12 and last 12 messages, so no case uses it. Process facts are
+  graded mechanically over the full run (`tool_used`, `tool_order`, file
+  regexes); judgments read the final message or a file the run produced,
+  such as the spec's Plan section. What a delegate did inside its own
+  context is invisible to graders; cases grade the brief and the lead's
+  report of it.
+- **The light tier is not yet covered.** No case exercises a contract
+  stated in the conversation, or its promotion to a file mid-work.
 
 ## Cases
 
@@ -47,13 +58,13 @@ Results land in `evals/results/`, which is git-ignored.
 | `02-brainstorm-batches-and-drafts` | design grounded in code; independent questions batched with recommendations, or an early draft | routing, brainstorming |
 | `03-coherent-change-no-delegation` | coupled work planned as a coherent change into the spec's Plan section; no editing delegates | leading, topology |
 | `04-broad-uncertain-reconnaissance` | unverified blast radius scoped by read-only recon; plan scope corrected | leading, delegation, topology |
-| `05-partitioned-workstreams` | seams behind a fixed interface: isolated, non-overlapping delegates; lead integrates and commits | leading, delegation, topology |
-| `06-low-risk-lesser-model` | bounded evidence collection never sent up-tier; results checked | delegation, tiers |
+| `05-partitioned-workstreams` | seams behind a fixed interface: briefs state ownership and criteria; isolated, non-overlapping delegates; lead integrates and commits | leading, delegation, topology |
+| `06-low-risk-lesser-model` | bounded evidence collection never sent up-tier; call sites reported correctly | delegation, tiers |
 | `07-high-risk-frontier-model` | destructive-migration review goes to a peer/frontier reviewer with the full brief | delegation, tiers, review |
 | `08-coupled-work-returns-to-lead` | hidden coupling stops parallel edits; lead takes over; plan records why | leading, delegation, replanning |
 | `09-failed-assumption-replan` | sequencing fixed in the plan; false material assumption goes to the user | leading, replanning |
 | `10-consequential-completion-review` | independent review catches an aggregate defect; fix reverified and committed; user files untouched | leading, review, completion |
-| `11-bug-report-routes-to-diagnosis` | reproduction before theory; upstream root cause, not the crash site; no code changed before approval | routing, diagnosing |
+| `11-bug-report-routes-to-diagnosis` | reproduction run; upstream root cause, not the crash site; no code changed before approval | routing, diagnosing |
 | `12-invalid-finding-refuted-not-fixed` | findings verified before fixing; invalid one refuted; sibling instances swept; nothing posted | routing, triage |
 
 ## Writing a case
@@ -62,6 +73,7 @@ A case directory holds `case.yaml` (with `context.scaffold_script`),
 `fixture.sh`, `prompt.md`, and `graders/*.md`. Prefer the free graders
 (`tool_used`, `tool_order`, `file_exists`, `regex`) for mechanical facts
 and `llm` graders for judgment, with explicit PASS and FAIL conditions.
-Inside eval runs the subagent tool is named `Task`. End each prompt with
+The subagent tool is named `Agent`. Never point an `llm` grader at
+`trace`: the judge sees only the first and last 12 messages. End each prompt with
 the line that invokes the stack, since invoking it is what grants its
 authority to commit and delegate.

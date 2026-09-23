@@ -1,7 +1,7 @@
 ---
 type: tool_used
-tool: Agent
-input_match: 'isolation'
+tool: Write
+input_match: 'app/'
 min: 0
 max: 0
 ---

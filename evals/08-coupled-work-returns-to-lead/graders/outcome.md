@@ -1,6 +1,6 @@
 ---
 type: llm
-focus: trace
+focus: last_message
 ---
-PASS if the agent recognized the shared dependency as coupling, did not start new parallel editing subagents for the coupled work, took ownership itself, put a single currency list in one shared place used by both import validation and reconciliation, ran the tests, and committed on `feat/multicurrency`.
-FAIL if it re-dispatched parallel editing subagents over the shared module, kept two separate currency lists, or declared completion without running the tests.
+PASS if the final report identifies the shared currency validation as coupling between the two workstreams, says the lead took the coupled work over instead of re-dispatching parallel delegates, and reports a passing test run.
+FAIL if it keeps two currency lists, re-dispatches parallel editing delegates over the shared module, or declares completion without a test run.
