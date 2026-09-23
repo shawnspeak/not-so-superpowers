@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 10-consequential-completion-review
+description: Consequential completion gets an independent review that catches an aggregate defect per-slice tests miss; the fix is reverified and committed before done.
+tags: [leading, review, completion]
+context:
+  scaffold_script: fixture.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 12-invalid-finding-refuted-not-fixed
+description: Review findings are verified before anything is fixed — the invalid one refuted with evidence, the pattern swept for siblings, the opinion labeled — and nothing is posted.
+tags: [routing, triage]
+context:
+  scaffold_script: fixture.sh

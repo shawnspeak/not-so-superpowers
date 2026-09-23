@@ -1,23 +1,35 @@
 # CLAUDE.md
 
 Portable seven-skill orchestration stack for Claude Code and Codex:
-`brainstorming` (design), `diagnosing` (root-cause investigation), or
-`triaging-findings` (external review triage) → `mapping-work` →
-`leading-implementation`, with `delegating-workstreams` and
-`reviewing-work` as support skills. The product
+`routing-work` sizes and routes the work → `brainstorming` (design),
+`diagnosing` (root-cause investigation), or `triaging-findings` (external
+review triage) → `leading-implementation`, with `delegating-workstreams` and
+`reviewing-work` as support skills. A clear change routes straight to
+`leading-implementation`. The product
 of this repo is skill *prose* — there is no application code. Editing here
 means editing instructions that a frontier model will follow, so precision of
 language is the engineering.
 
 ## Design intent (why the prose says what it says)
 
+- **Process is sized to the work.** `routing-work` picks a tier from
+  repository evidence — **direct** (clear, local, low-risk: no spec, state
+  the change and its verification, implement), **light** (a contract stated
+  in the conversation and approved once, no file), or **full** (a spec file,
+  for work that spans sessions or models, crosses subsystems, or touches
+  interfaces, data, security, or destructive operations). The tier sizes
+  artifacts and approval gates, never the rigor of the method: diagnosis
+  still reproduces first and triage still verifies every finding at every
+  tier. Tier changes are announced; a light contract becomes a file the
+  moment the work must survive the session. Never add prose that forces
+  full-tier ceremony onto work the sizing rules call direct or light.
 - **Three entry points, one downstream contract.** Features and design-shaped
   problems enter through `brainstorming`; defects with an unknown cause
   enter through `diagnosing`; batches of external review findings — a PR
   review, a scanner report, a pasted list — enter through
-  `triaging-findings`. All end in an approved spec file that `mapping-work`
-  consumes identically — the pipeline downstream of the spec never forks. Diagnosis is evidence-driven and leaves the codebase
-  unchanged:
+  `triaging-findings`. All end in an approved contract that `leading-implementation`
+  consumes identically — the pipeline downstream of the contract never
+  forks. Diagnosis is evidence-driven and leaves the codebase unchanged:
   reproduction before theory, one hypothesis at a time, cause confirmed by
   mechanism/prediction/history before any fix is designed. Its acceptance
   criteria name a test encoding the reproduction, which the lead writes
@@ -35,11 +47,15 @@ language is the engineering.
   rejects Superpowers-style task-per-agent pipelines. Context retained by a
   single lead is treated as the most valuable asset; never add prose that
   encourages fragmenting coupled work across fresh contexts.
-- **Durable artifacts at every handoff.** The spec
-  (`docs/specs/YYYY-MM-DD-<topic>.md`) and the execution map (persisted
-  alongside it) must let a *different session or model* pick up the work
-  cold. Any new handoff introduced between skills must travel via a file,
-  not conversation. This includes where the work lives: the map records the
+- **Durable artifacts at every cross-session handoff.** A full-tier spec
+  file (`docs/specs/YYYY-MM-DD-<topic>.md`) holds a **Contract** section,
+  written by the entry skill, and a **Plan** section, written by the lead
+  before the first change; together they must let a *different session or
+  model* pick up the work cold. Any handoff that crosses a session or model
+  boundary — or may be lost to context compaction — must travel via a
+  file, not conversation; a light contract is promoted to a file the moment
+  that applies. The lead commits the spec file as the workspace's first
+  commit. This includes where the work lives: the Plan records the
   workspace (branch or worktree) so a resumed session finds the work in
   progress without repo-state archaeology — the skills follow project
   branching convention rather than imposing one, and absent a convention
@@ -51,7 +67,7 @@ language is the engineering.
   committed. Pre-existing uncommitted changes are checked at workspace
   confirmation — overlaps resolved with the user up front, the rest
   preserved untouched — and workspace state is never journaled into the
-  map, which stays a coordination artifact. Delegates return changes and
+  Plan, which stays a coordination artifact. Delegates return changes and
   evidence; only the lead writes history on the implementation workspace,
   and delegates that edit concurrently work in isolated worktrees, leaving
   changes uncommitted for the lead to bring over, verify, and commit.
@@ -59,14 +75,17 @@ language is the engineering.
   Harness defaults (e.g. "commit only when asked", "use subagents only when
   asked") would otherwise stall the stack, so the skills say outright what
   invocation authorizes: bounded delegates and package commits on the
-  implementation workspace. It never authorizes scripted multi-agent
+  implementation workspace. When a skill engaged on its own at the direct
+  tier and the user neither invoked the stack nor approved a contract, the
+  lead asks once before the first commit. It never authorizes scripted multi-agent
   orchestration runs, pushing, merging, history rewrites, or publishing to
-  a shared channel — triage replies are approved as content with the spec,
+  a shared channel — triage replies are approved as content with the contract,
   and posting them needs its own confirmation. Keep new grants explicit and
   this narrow.
 - **Tiered model economics.** Intended usage: a frontier model (e.g. Fable)
-  runs brainstorming, diagnosing, and mapping; a strong-but-cheaper model (e.g. Opus)
-  runs the lead; bounded low-ambiguity and high-volume mechanical work goes
+  runs brainstorming, diagnosing, and triage; a strong-but-cheaper model
+  (e.g. Opus) runs the lead, including planning against the repository —
+  the lead that owns and reshapes the plan also writes it; bounded low-ambiguity and high-volume mechanical work goes
   down-tier (e.g. Haiku); the lead delegates *up*-tier for adversarial
   review, architecture-changing diagnosis, and security calls. When
   acceptance criteria are crisp and testable, failing tests written before
@@ -89,11 +108,18 @@ language is the engineering.
   silently. The completion close-out checklist lives in
   `leading-implementation` (review can be skipped for low-risk work;
   completion cannot) and runs once — review feeds it, never replaces it.
-- **Spec is contract, map is coordination aid.** Skills must never let the
-  spec change silently; map reshaping is free but recorded. The contract
+- **Contract binds, plan coordinates.** Skills must never let the contract
+  change silently; plan reshaping is free but recorded. The contract
   bounds ambition as well as scope: the lead builds the simplest
   implementation that satisfies the acceptance criteria — abstractions or
   defenses the spec does not demand are scope creep, not diligence.
+- **Each rule has one home.** A rule lives in exactly one skill; others
+  point to it by skill name rather than restating it — sizing and spec rules
+  in `routing-work`, workspace and commit rules in `leading-implementation`,
+  briefs, tiers, and tests-as-contract in `delegating-workstreams`,
+  reviewer independence and finding labels in `reviewing-work`. Restated
+  rules drift apart and every extra clause competes for the model's
+  attention; prefer stating the rule over enumerating its cases.
 
 ## Hard conventions (enforced by tests/validate-structure.sh)
 
@@ -106,6 +132,9 @@ language is the engineering.
 - SKILL.md bodies stay ≤200 lines — they are loaded selectively.
 - No `TODO`/`FIXME`/`TBD`/`XXX`/`{{placeholders}}` anywhere under `skills/`.
 - Every `references/*.md` path mentioned in a SKILL.md must exist.
+- Every backticked bare lowercase token in a SKILL.md body is read as a
+  skill name and must be one of `EXPECTED_SKILLS` — so a reference to a
+  removed or renamed skill fails validation.
 
 Run `bash tests/validate-structure.sh` after **every** skill edit.
 
@@ -118,7 +147,7 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
 - **Cross-skill consistency:** `leading-implementation` and
   `triaging-findings` route all delegation through
   `delegating-workstreams`, so anything declared delegable in one must
-  appear in the other's suitable-objectives / tier lists. When editing
+  appear in the other's tier lists. When editing
   delegation prose, grep all of them.
 - Every skill degrades gracefully: if subagents, model selection, or
   worktrees are unavailable, the lead does the work sequentially with the
@@ -132,12 +161,15 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
 ## Testing
 
 - Structural: `tests/validate-structure.sh` (fast, run always).
-- Behavioral: `tests/scenarios/*.md` — ten baseline-vs-forward scenarios
-  run *manually* against real harness sessions; they are prompts plus
-  success criteria, not executable tests. If a skill change alters a
-  behavior a scenario probes (execution-mode choice, tier selection,
-  coupling recovery, replanning, completion evidence), update the matching
-  scenario file.
+- Behavioral: `evals/` — twelve `claude plugin eval` cases, each a
+  scaffolded fixture repo, a prompt, and graders, run with and without the
+  plugin so each score is a delta over baseline. See `evals/README.md` for
+  the run command. A skill edit that changes behavior — not just wording —
+  ships with an eval run of the affected cases (tags: `routing`, `tiers`,
+  `topology`, `delegation`, `replanning`, `review`, `completion`,
+  `diagnosing`, `triage`, `brainstorming`, `leading`) and, if the behavior
+  a case probes changed, an updated case. Unmeasured prose changes are how
+  clauses accumulate.
 
 ## Packaging
 

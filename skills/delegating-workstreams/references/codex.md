@@ -15,8 +15,8 @@ Two routes, in order of preference:
    progress and permissions are visible to the user.
 2. **A non-interactive child run**: `codex exec "<brief>"` starts a fresh
    Codex context that executes the brief and exits. Pass the entire delegate
-   brief as the prompt and reference durable artifacts (the spec, the
-   execution map) by file path so the delegate reads them itself.
+   brief as the prompt and reference durable artifacts (the spec file, when one exists)
+   by file path so the delegate reads them itself.
 
 Useful flags for `codex exec`:
 

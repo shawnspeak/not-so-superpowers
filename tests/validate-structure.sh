@@ -10,7 +10,7 @@ FAIL=0
 fail() { echo "FAIL: $*"; FAIL=1; }
 pass() { echo "  ok: $*"; }
 
-EXPECTED_SKILLS="brainstorming diagnosing triaging-findings mapping-work leading-implementation delegating-workstreams reviewing-work"
+EXPECTED_SKILLS="routing-work brainstorming diagnosing triaging-findings leading-implementation delegating-workstreams reviewing-work"
 
 echo "== Skill presence and frontmatter =="
 for skill in $EXPECTED_SKILLS; do
@@ -61,6 +61,20 @@ for md in "$SKILLS_DIR"/*/SKILL.md; do
     fi
   done
 done
+
+echo "== Cross-skill references resolve =="
+# Any backticked bare lowercase token in a SKILL.md body is a skill name;
+# it must be one of the expected skills (catches references to removed skills).
+for md in "$SKILLS_DIR"/*/SKILL.md; do
+  skill="$(basename "$(dirname "$md")")"
+  for ref in $(grep -ohE '`[a-z]+(-[a-z]+)*`' "$md" | tr -d '`' | sort -u); do
+    case " $EXPECTED_SKILLS " in
+      *" $ref "*) : ;;
+      *) fail "$skill: references unknown skill '$ref'" ;;
+    esac
+  done
+done
+pass "cross-skill references checked"
 
 echo "== Core skills are platform-neutral =="
 # Core SKILL.md bodies may name harnesses when pointing at references/, but

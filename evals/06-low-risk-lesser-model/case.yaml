@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 06-low-risk-lesser-model
+description: Bounded, low-ambiguity evidence collection is never sent to a top-tier model, and the lead checks what comes back.
+tags: [delegation, tiers]
+context:
+  scaffold_script: fixture.sh

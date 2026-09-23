@@ -11,7 +11,7 @@ calling it.
 
 Use the **Agent** tool. Put the entire delegate brief in the `prompt`
 parameter — a fresh subagent sees nothing of the lead's conversation. Link
-durable artifacts by file path (the spec, the execution map) so the
+durable artifacts by file path (the spec file, when one exists) so the
 delegate reads them itself. Launch independent delegates in one message so
 they run concurrently.
 

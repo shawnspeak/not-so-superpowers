@@ -1,89 +1,69 @@
 ---
 name: brainstorming
-description: Use when the user brings an idea, feature request, or problem that needs design before implementation — before writing code for any non-trivial change. For a bug or failure whose cause is unknown, use diagnosing first. Guides collaborative design through clarifying questions, alternative comparison, and an approved written spec.
+description: Use when a feature, change, or problem needs design before implementation — when there are decisions to make or legitimate alternative approaches to weigh. For a bug whose cause is unknown, use diagnosing; for a clear change with one obvious approach, implement directly. Produces an approved design contract through targeted questions, approach comparison, and an early concrete draft.
 ---
 
 # Brainstorming
 
-Turn a rough idea into an approved design spec through collaboration, not
-interrogation or a premature jump to solutions. The output is a durable written
-contract for what must be built. It is not an implementation plan.
+Turn a design-shaped request into an approved contract for what must be
+built. The contract is not an implementation plan. If the tier is not yet
+set, size the work per `routing-work` first; a request that turns out to
+have one obvious approach leaves this skill for direct implementation.
 
-## Before proposing anything
+## Ground first
 
-Inspect the current project first. Read the relevant code, existing docs,
-recent history, and configuration. Ground every question and proposal in what
-actually exists. Never design against an imagined codebase.
+Read the relevant code, docs, recent history, and configuration before
+proposing anything. Never design against an imagined codebase. Any question
+the code can answer, answer from the code.
 
-## Clarify the problem
+## Ask only what the user can answer
 
-Ask questions **one at a time** and wait for each answer. Do not batch a
-questionnaire. Cover, in whatever order the conversation makes natural:
-
-- purpose — what problem this solves and for whom;
-- constraints — technical, product, compatibility, timeline;
-- non-goals — what is explicitly out of scope;
-- success criteria — how the user will know it worked.
-
-Stop asking when new answers stop changing the design. Prefer questions whose
-answers change what you would build over questions that merely fill in a
-template.
+Collect the questions whose answers would change what you build — purpose,
+constraints, non-goals, how the user will judge success. Ask the independent
+ones together in one batch, each with your recommended answer where you have
+one. Ask one at a time only when a question depends on an earlier answer.
+Where a sensible default exists, put it in the draft as a stated decision
+rather than asking. Stop asking when answers stop changing the design.
 
 ## Compare approaches
 
-Present two or three plausible approaches with honest tradeoffs. Recommend
-one and say why. If only one approach is genuinely viable, say so and explain
-what you rejected. Let the user choose or redirect.
+When legitimate alternatives exist, present two or three with honest
+tradeoffs and recommend one. If only one is viable, say so in a line and
+name what you rejected. This can travel in the same message as the
+question batch. Let the user choose or redirect.
 
-## Present the design in sections
+## Draft early, then iterate
 
-Walk through the design in sections sized for the user to actually review —
-one coherent topic at a time, pausing for reaction. Cover:
+As soon as the approach is chosen, write the draft contract. People
+critique a concrete draft far better than they answer abstract questions,
+so iterate on the draft, not in conversation about it. Put the decisions you
+made on the user's behalf first, so they are reviewed rather than
+discovered.
 
-- architecture and how it fits the existing system;
-- components and their responsibilities;
-- data flow;
+The contract records, as they apply:
+
+- goal — the problem solved and for whom;
+- design decisions — the chosen approach and why, in brief; architecture
+  and fit with the existing system; components and responsibilities; data
+  flow. A rejected alternative earns a line only when its rejection is
+  itself a constraint;
 - failure behavior — what happens when things go wrong;
-- testing and verification strategy.
+- verification strategy;
+- non-goals;
+- acceptance criteria.
 
-Incorporate feedback as you go. Do not present a wall of text and ask "any
-questions?"
-
-## Write the spec
-
-Once the sections are agreed, write a durable design spec to the project's
-documentation location (for example `docs/specs/YYYY-MM-DD-<topic>.md`, or
-wherever this project keeps design documents). The spec records goal, design
-decisions, failure behavior, non-goals, and acceptance criteria — the things
-that stay true regardless of how implementation unfolds.
-
-The spec is a contract, not a transcript: every sentence should bind the
-implementation. Record the chosen approach and why in brief; rejected
-alternatives earn a line only when the rejection itself is a constraint.
-
-Self-review the written spec before showing it: check it against the
-conversation for anything agreed but omitted, anything included but never
-agreed, and internal contradictions — and cut prose that describes rather
-than binds. Fix what you find.
-
-Then require the user to review the written document itself. Conversational
-agreement is not approval of the spec; the file is the contract.
+Apply the spec rules in `routing-work` — binding prose, self-review, and
+approval of the written contract.
 
 ## Handoff
 
-An approved spec transitions to `mapping-work`, which inspects the repository
-and chooses an execution strategy. Do **not** mandate an exhaustive
-implementation plan or a task-per-agent workflow as a condition of finishing
-design — whether any detailed plan is needed is `mapping-work`'s decision,
-made against repository evidence.
-
-If the design is too large to be one coherent unit of work, recommend
-splitting it into multiple specs, each reviewed and approved on its own, and
-agree on the split with the user.
+An approved contract goes to `leading-implementation`. Do not mandate a
+detailed implementation plan or a task-per-agent workflow as a condition of
+finishing design; how the work is shaped is the lead's decision, made
+against repository evidence. If the design is too large to be one coherent
+unit, recommend splitting it into several contracts.
 
 ## Portability
 
-Do not assume any specific visual companion, documentation-style skill,
-commit policy, or platform tool. If a helpful capability is available
-(diagram rendering, a docs skill, a spec template), use it when it improves
-the collaboration — but its absence must never block design work.
+Assume no visual companion, docs skill, or spec template. Use one when it
+helps the collaboration; its absence never blocks design work.

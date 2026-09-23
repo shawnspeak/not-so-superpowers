@@ -21,6 +21,15 @@
     "triages",
     "dispositioned",
     "dispositioning",
-    "Superpowers"
+    "Superpowers",
+    "unparseable",
+    "multicurrency",
+    "backfill",
+    "isoformat",
+    "strftime",
+    "sqlite",
+    "unittest",
+    "scaffolded",
+    "ablation"
   ]
 }

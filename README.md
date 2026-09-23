@@ -3,7 +3,9 @@
 A portable collection of seven skills for Codex and Claude Code that keeps
 the strongest part of Superpowers — collaborative design — and replaces its
 mandatory detailed-plan, task-per-agent execution pipeline with adaptive
-orchestration suited to frontier models.
+orchestration suited to frontier models. Process is sized to the work: a
+clear, local change is implemented directly; ceremony — written specs,
+plans, approval gates — is reserved for work that needs it.
 
 One persistent lead agent retains architectural and implementation context.
 Delegation is selective: lesser or cheaper models take bounded low-risk work
@@ -18,22 +20,26 @@ conventions for changing them.
 
 | Skill | Responsibility |
 |---|---|
-| [`brainstorming`](skills/brainstorming/SKILL.md) | Collaborative design: clarify, compare approaches, produce an approved written spec |
-| [`diagnosing`](skills/diagnosing/SKILL.md) | Root-cause investigation: reproduce, confirm the cause with evidence, produce an approved fix spec |
-| [`triaging-findings`](skills/triaging-findings/SKILL.md) | External review triage: verify every finding, sweep for siblings, produce an approved triage spec with dispositions and replies |
-| [`mapping-work`](skills/mapping-work/SKILL.md) | Inspect the repo, choose an execution mode, produce 3–8 outcome-sized work packages |
-| [`leading-implementation`](skills/leading-implementation/SKILL.md) | One persistent lead implements end to end, replans from evidence, owns integration |
+| [`routing-work`](skills/routing-work/SKILL.md) | Classify the work, size the process to it (direct, light, or full), route it; holds the shared spec rules |
+| [`brainstorming`](skills/brainstorming/SKILL.md) | Collaborative design: targeted questions, approach comparison, an early concrete draft, an approved contract |
+| [`diagnosing`](skills/diagnosing/SKILL.md) | Root-cause investigation: reproduce, confirm the cause with evidence, an approved fix contract |
+| [`triaging-findings`](skills/triaging-findings/SKILL.md) | External review triage: verify every finding, sweep for siblings, an approved triage contract with dispositions and replies |
+| [`leading-implementation`](skills/leading-implementation/SKILL.md) | One persistent lead plans against the repository, implements end to end, replans from evidence, owns integration and commits |
 | [`delegating-workstreams`](skills/delegating-workstreams/SKILL.md) | Bounded delegate briefs, ownership rules, capability-tier model selection |
-| [`reviewing-work`](skills/reviewing-work/SKILL.md) | Review logical outcomes and the aggregate against the spec; evidence-based completion |
+| [`reviewing-work`](skills/reviewing-work/SKILL.md) | Independent review of logical outcomes and the aggregate against the contract |
 
-Workflow: an idea goes through `brainstorming` to an approved design spec; a
-bug with an unknown cause goes through `diagnosing` to an approved fix spec;
-a batch of external review findings goes through `triaging-findings` to an
-approved triage spec; any of these specs goes through `mapping-work` to an
-execution mode and living map;
-`leading-implementation` carries it to completion, using
-`delegating-workstreams` when work genuinely branches and `reviewing-work`
-at risk boundaries and before consequential completion.
+Workflow: `routing-work` classifies the request and sizes the process from
+repository evidence. A clear, local change goes straight to
+`leading-implementation` — no spec, just a stated change and its
+verification. Otherwise an idea goes through `brainstorming`, a bug with an
+unknown cause through `diagnosing`, and a batch of external review findings
+through `triaging-findings`, each ending in an approved contract: stated in
+the conversation for light work, or a spec file for full work that spans
+sessions, models, or risky surfaces. `leading-implementation` plans against
+the repository (into the spec file's Plan section at the full tier) and
+carries the work to completion, using `delegating-workstreams` when work
+genuinely branches and `reviewing-work` at risk boundaries and before
+consequential completion.
 
 ## Installation
 
@@ -65,6 +71,11 @@ set. Skills are namespaced, e.g. `not-so-superpowers:brainstorming`.
 Alternatively, skip the plugin and copy skill directories into
 `<repo>/.claude/skills/` (per-project) or `~/.claude/skills/` (personal).
 
+**Upgrading from 0.7 or earlier** — `mapping-work` was folded into
+`leading-implementation`. Plugin installs pick this up on update; copied
+installs (including `./install-codex.sh` without `--link`) should delete the
+stale `mapping-work` skill directory.
+
 **Codex** — Codex CLI has no plugin/marketplace mechanism; it discovers
 skills from `.agents/skills/` (project) or `~/.agents/skills/` (user). Run
 the installer:
@@ -84,8 +95,9 @@ and review boundaries.
 ## Validation
 
 - Structural: `tests/validate-structure.sh` — frontmatter, placeholders,
-  referenced files, platform neutrality, body size.
-- Behavioral: `tests/scenarios/` — ten baseline-vs-forward scenarios
-  covering execution-mode selection, tier selection, coupling recovery,
-  replanning, root-cause routing, review-finding triage, and evidence-based
-  completion.
+  referenced files, cross-skill references, platform neutrality, body size.
+- Behavioral: [`evals/`](evals/README.md) — twelve `claude plugin eval`
+  cases, each run with and without the plugin, covering process sizing,
+  design collaboration, execution-mode selection, tier selection, coupling
+  recovery, replanning, root-cause routing, review-finding triage, and
+  evidence-based completion.
