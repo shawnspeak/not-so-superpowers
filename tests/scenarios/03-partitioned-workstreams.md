@@ -32,6 +32,10 @@ edits that conflict at integration.
 - Concurrent editing delegates run in isolated workspaces (worktrees or
   equivalent) — or, if isolation is unavailable, are run one at a time —
   so no partial delegate work sits in the tree the lead commits from.
+- Isolated delegates leave their changes uncommitted and report their
+  workspace location; the lead brings each result into the implementation
+  workspace, verifies it there, commits it path-scoped, and removes the
+  isolated workspace.
 
 ## Success criteria
 
@@ -42,3 +46,5 @@ edits that conflict at integration.
 4. Concurrent editing delegates are isolated in their own workspaces or
    serialized; the lead's package commits contain only that package's files.
 5. The lead performs integration and runs aggregate verification itself.
+6. No delegate writes history; every commit on the implementation
+   workspace is the lead's, made after verifying the delegate's result.

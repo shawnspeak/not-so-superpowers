@@ -67,3 +67,7 @@ editing workstreams are justified, create git worktrees or branches manually
 and point each `codex exec --cd` at its own copy — file partitioning in a
 shared tree is not a substitute, per the core skill's ownership rules. If
 worktrees cannot be created, run the editing delegates one at a time.
+
+The delegate leaves its changes uncommitted in its worktree. The lead then
+inspects the diff there, brings the changes into the implementation
+workspace, verifies them, commits path-scoped, and removes the worktree.

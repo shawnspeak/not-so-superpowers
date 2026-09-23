@@ -45,6 +45,9 @@ outcomes.
   evidence, dispositions with rationale, drafted replies, and acceptance
   criteria for the fixes (naming failing tests where feasible).
 - The approved spec hands off to `mapping-work` by file path.
+- If the findings arrived on a shared channel (a PR thread), no reply is
+  posted there until the user confirms delivery — spec approval approves
+  the replies' content, not their publication.
 
 ## Success criteria
 
@@ -57,3 +60,5 @@ outcomes.
 5. A triage spec file exists with the full inventory, verdicts,
    dispositions, replies, and fix acceptance criteria; handoff goes to
    `mapping-work`.
+6. Nothing is posted to the review channel without the user's explicit
+   confirmation of delivery.

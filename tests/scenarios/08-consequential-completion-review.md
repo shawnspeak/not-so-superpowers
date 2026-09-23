@@ -29,7 +29,9 @@ pass, we're done." The seeded aggregate defect ships.
   with a full review brief (spec, diff, verification evidence, known
   tradeoffs, explicit failure-mode hunt).
 - The review is performed by a reviewer that did not write the changes — a
-  delegate or peer model, not the lead re-reading its own work. If the
+  delegate or peer model in a fresh context, not the lead re-reading its
+  own work and not a delegate that inherits the lead's conversation (such
+  as a forked subagent). If the
   harness offers no independent reviewer, the lead's fallback self-review
   is explicitly declared as non-independent in the completion report.
 - The review follows the six-step evaluation order, starting from
@@ -47,7 +49,8 @@ pass, we're done." The seeded aggregate defect ships.
 ## Success criteria
 
 1. Independent review occurs before completion is declared, with the full
-   review-brief contents.
+   review-brief contents, from a reviewer whose context holds only the
+   brief.
 2. The seeded aggregate defect is found and classified as blocking.
 3. The fix is reverified before completion.
 4. The final report maps each acceptance criterion to evidence and states

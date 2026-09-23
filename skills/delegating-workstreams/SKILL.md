@@ -11,6 +11,13 @@ accountability: the lead shapes the brief, inspects the returned evidence,
 and integrates the result. Invoking this stack is the user's permission to
 use subagents: never skip a delegation these skills direct — reviews
 included — on the grounds that the user did not explicitly ask for one.
+That permission covers bounded delegates the lead briefs and integrates
+itself; it never authorizes a scripted multi-agent orchestration run,
+which requires the user's own explicit request.
+
+Once an objective is delegated, do not also pursue it yourself — work on
+something else or wait. Never act on, report, or predict a delegate's
+result before it has actually returned.
 
 ## Suitable objectives
 
@@ -77,7 +84,10 @@ them.
   be created, run editing delegates one at a time.
 - Delegates do not write history on the implementation workspace. A
   delegate's result is its changes and evidence; the lead verifies the work
-  and makes the commit.
+  and makes the commit. An isolated delegate leaves its changes uncommitted
+  in its workspace and reports where that workspace is; the lead brings the
+  changes into the implementation workspace, verifies them there, commits
+  path-scoped, and removes the isolated workspace.
 - If workstreams turn out to be tightly coupled, or integration is becoming
   the dominant cost, **stop parallel edits and return ownership to the
   lead**. Absorbing two half-integrated diffs is worse than doing the work

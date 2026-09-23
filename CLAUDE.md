@@ -42,7 +42,8 @@ language is the engineering.
   not conversation. This includes where the work lives: the map records the
   workspace (branch or worktree) so a resumed session finds the work in
   progress without repo-state archaeology — the skills follow project
-  branching convention rather than imposing one. The history is a durable
+  branching convention rather than imposing one, and absent a convention
+  package commits never land on the default branch. The history is a durable
   artifact too: the lead commits each work package as its verification
   passes (in the project's commit style, read from its history), staging
   only the package's own paths, so verified work is never stranded in an
@@ -52,7 +53,17 @@ language is the engineering.
   preserved untouched — and workspace state is never journaled into the
   map, which stays a coordination artifact. Delegates return changes and
   evidence; only the lead writes history on the implementation workspace,
-  and delegates that edit concurrently work in isolated worktrees.
+  and delegates that edit concurrently work in isolated worktrees, leaving
+  changes uncommitted for the lead to bring over, verify, and commit.
+- **Invoking the stack grants bounded authority, stated explicitly.**
+  Harness defaults (e.g. "commit only when asked", "use subagents only when
+  asked") would otherwise stall the stack, so the skills say outright what
+  invocation authorizes: bounded delegates and package commits on the
+  implementation workspace. It never authorizes scripted multi-agent
+  orchestration runs, pushing, merging, history rewrites, or publishing to
+  a shared channel — triage replies are approved as content with the spec,
+  and posting them needs its own confirmation. Keep new grants explicit and
+  this narrow.
 - **Tiered model economics.** Intended usage: a frontier model (e.g. Fable)
   runs brainstorming, diagnosing, and mapping; a strong-but-cheaper model (e.g. Opus)
   runs the lead; bounded low-ambiguity and high-volume mechanical work goes
@@ -68,7 +79,9 @@ language is the engineering.
 - **Independent review gates consequential completion.** The lead's own
   re-read may cover routine boundaries, but the review before consequential
   completion must come from a reviewer that did not write the changes — a
-  delegate or peer model, up-tier where warranted. When the harness offers
+  delegate or peer model, up-tier where warranted, in a fresh context (a
+  delegate that inherits the lead's conversation, such as a fork, shares
+  the author's blind spots and is not independent). When the harness offers
   no independent reviewer, the lead's fallback self-review must be declared
   in the completion report; degraded independence is reported, never silent.
   Reviewers report every material finding, labeled — filtering is the

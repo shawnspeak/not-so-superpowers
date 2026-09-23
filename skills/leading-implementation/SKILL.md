@@ -35,9 +35,10 @@ Before the first change, confirm that the workspace the map names — the
 branch or worktree the implementation lives on — matches reality, and create
 it if it does not exist yet. If the map is silent, decide now and record the
 decision in the map: follow the project's branching convention when one
-exists; prefer a dedicated feature branch when the change is multi-file and
-the session sits on the default branch; note the absence of version control
-rather than inventing it. A different session resuming this work must be
+exists; otherwise, when the session sits on the default branch, create a
+dedicated feature branch — package commits never land on the default
+branch unless the project's convention puts them there; note the absence
+of version control rather than inventing it. A different session resuming this work must be
 able to find the work in progress from the map alone.
 
 Check the workspace for pre-existing uncommitted changes at the same time.
@@ -56,7 +57,9 @@ before moving on — one atomic, green checkpoint per package, written in the
 project's commit style as read from its history rather than a style imposed
 on it. Do not let verified work accumulate uncommitted across package
 boundaries: committed checkpoints are what let a resumed session recover
-the work.
+the work. Implementing an execution map under this skill is the user's
+request for these package commits — do not stop to ask before each one.
+Pushing, merging, and rewriting history remain the user's call.
 
 A package commit is path-scoped. Stage only the files the package's work
 actually touched, and inspect the staged diff before committing to confirm

@@ -131,11 +131,14 @@ Conversational agreement is not approval; the file is the contract.
 ## Replies travel with the spec
 
 Each finding's drafted reply is part of the artifact — confirmations
-briefly, declines with their full evidence-backed rationale. After
-approval, deliver the replies through the channel the review arrived on,
-with whatever tooling the project offers, or hand them to the user to
-deliver. Replies for fixes may wait to reference the landed change;
-declines and deferrals can go out on approval.
+briefly, declines with their full evidence-backed rationale. Approving the
+spec approves what the replies say, not their publication: posting to a
+shared channel is outward-facing, so confirm delivery with the user before
+posting unless they already said to post on approval. Then deliver the
+replies through the channel the review arrived on, with whatever tooling
+the project offers, or hand them to the user to deliver. Replies for fixes
+may wait to reference the landed change; declines and deferrals can go out
+once delivery is confirmed.
 
 ## Handoff
 

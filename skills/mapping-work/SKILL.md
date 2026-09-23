@@ -56,8 +56,8 @@ package records:
 
 Above the packages, record one top-level **workspace** line: the branch or
 worktree the implementation happens on. Follow the project's branching
-convention if one was discovered; propose a dedicated feature branch when
-the change is multi-file and the session sits on the default branch; write
+convention if one was discovered; otherwise propose a dedicated feature
+branch whenever the session sits on the default branch; write
 that there is no version control when that is the reality. A session
 resuming this work must be able to find it from the map alone.
 

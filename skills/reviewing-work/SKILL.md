@@ -18,7 +18,9 @@ public APIs, anything where a shipped defect is expensive — the reviewer
 must be independent of the lead: a delegate or peer model (up-tier where
 warranted, per `delegating-workstreams`) that did not write the changes.
 The author re-reading their own work is not independent, however fresh the
-eyes.
+eyes — and neither is a delegate that inherits the lead's conversation
+context. Independence requires a fresh context that sees only the review
+brief.
 
 When no independent reviewer is available — no subagents or peer model in
 the harness — the lead falls back to reviewing as a deliberate separate
