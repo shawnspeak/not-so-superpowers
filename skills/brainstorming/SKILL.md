@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Use when a feature, change, or problem needs design before implementation — when there are decisions to make or legitimate alternative approaches to weigh. For a bug whose cause is unknown, use diagnosing; for a clear change with one obvious approach, implement directly. Produces an approved design contract through targeted questions, approach comparison, and an early concrete draft.
+description: Use when a feature, change, or problem needs design before implementation — when there are decisions to make or legitimate alternative approaches to weigh. For a bug whose cause is unknown, use diagnosing; a clear change with one obvious approach is routed and sized by routing-work. Produces an approved design contract through targeted questions, approach comparison, and an early concrete draft.
 ---
 
 # Brainstorming
@@ -8,7 +8,7 @@ description: Use when a feature, change, or problem needs design before implemen
 Turn a design-shaped request into an approved contract for what must be
 built. The contract is not an implementation plan. If the tier is not yet
 set, size the work per `routing-work` first; a request that turns out to
-have one obvious approach leaves this skill for direct implementation.
+have one obvious approach goes back to `routing-work` as a clear change.
 
 ## Ground first
 

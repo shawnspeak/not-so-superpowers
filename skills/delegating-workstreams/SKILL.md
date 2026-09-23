@@ -1,6 +1,6 @@
 ---
 name: delegating-workstreams
-description: Use when the implementation lead or a triage decides to hand a bounded objective to a subagent — reconnaissance, an isolated workstream, a mechanical sweep, finding verification, adversarial checks, independent diagnosis, or review. Defines delegate briefs, ownership rules, and capability-tier model selection.
+description: Use when the implementation lead, a diagnosis, a triage, or a review decides to hand a bounded objective to a subagent — reconnaissance, an isolated workstream, a mechanical sweep, finding verification, adversarial checks, independent diagnosis, or review. Defines delegate briefs, ownership rules, and capability-tier model selection.
 ---
 
 # Delegating Workstreams
@@ -10,9 +10,11 @@ benefit from a separate context. Delegation transfers work, not
 accountability: the lead shapes the brief, inspects the returned evidence,
 and integrates the result.
 
-Invoking this stack is the user's permission to use subagents: never skip a
-delegation these skills direct — reviews included — because the user did
-not explicitly ask for one. The permission covers bounded delegates the
+Invoking this stack, or approving a contract under it, is the user's
+permission to use subagents: never skip a delegation these skills direct —
+reviews included — because the user did not explicitly ask for one. When a
+skill engaged on its own and the user did neither, ask once before the
+first delegate. The permission covers bounded delegates the
 lead briefs and integrates itself; it never authorizes a scripted
 multi-agent orchestration run, which needs the user's own explicit request.
 Once an objective is delegated, do not also pursue it yourself, and never

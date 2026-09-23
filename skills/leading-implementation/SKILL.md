@@ -29,24 +29,30 @@ contexts.
 
 ## Plan against the repository
 
-If the spec file already has a Plan, this is a resumed session: confirm
-the workspace it names matches reality, check which packages are already
-committed, and continue from there rather than replanning from scratch.
+If no tier is set, size the work per `routing-work` first.
 
-Otherwise, before the first change, inspect the code the contract touches
-and confirm its technical assumptions: the interfaces it names exist, the seams it
+Before the first change, inspect the code the contract touches and confirm
+its technical assumptions: the interfaces it names exist, the seams it
 relies on are real, the subsystems it partitions are separable. A wrong
 material assumption goes back to the user before any work is planned
 against it.
 
-Then choose one execution mode from what inspection showed, and state the
+If the spec file already has a Plan, this is a resumed session: run the
+same check against the packages that remain, confirm the workspace the
+Plan names matches reality, see which packages are already committed, and
+continue from there rather than replanning from scratch.
+
+At the direct tier the plan is the one-line statement of change and
+verification; the rest of this section applies to light and full work.
+
+Choose one execution mode from what inspection showed, and state the
 evidence for it:
 
 1. **Coherent change** — one tightly coupled thread. Implement directly;
    delegation would add handoff cost without benefit.
 2. **Uncertain or broad change** — the blast radius or current state is
-   unclear. Dispatch read-only reconnaissance, synthesize the findings,
-   then implement.
+   unclear. Dispatch read-only reconnaissance, correct the plan's scope
+   from its findings, then implement.
 3. **Naturally partitioned change** — real seams with stable interfaces.
    Delegates own separate workstreams with non-overlapping files; the lead
    owns shared interfaces and integration.
@@ -58,15 +64,14 @@ tests" is one package. Each records its outcome, dependencies, likely
 scope, acceptance criteria, verification commands, and risks where they
 apply.
 
-The tier set by `routing-work` decides where the plan lives:
+The tier decides where the plan lives:
 
-- **direct** — one package; the plan is the one-line statement of change
-  and verification;
 - **light** — the plan stays in the lead's working context;
 - **full** — the plan is written into the spec file's Plan section before
   the first change, opening with a `Workspace:` line that names the branch
   or worktree decided below, so a different session can resume from the
-  file alone.
+  file alone. A light contract promoted to a file mid-work gets its Plan
+  section the same way, at promotion.
 
 The plan records decisions that drive the work, never workspace state
 snapshots. A separate detailed procedure is warranted only when it has
@@ -87,7 +92,8 @@ control, say so rather than inventing it.
 Check for pre-existing uncommitted changes at the same time. They belong to
 the user: never stage them, never revert them. The spec file this stack
 wrote is the exception — it is the work's own artifact, and the lead
-commits it with its Plan as the first commit on the workspace. If any user
+commits it with its Plan as the first commit on the workspace, or as the
+next commit when it is promoted mid-work. If any user
 change overlaps files the plan expects to touch, resolve that with the user
 before the first change.
 From then on, an uncommitted change inside a package's scope is work in
@@ -114,8 +120,7 @@ completed package; a mid-package checkpoint is labeled work in progress.
 
 Delegate only through `delegating-workstreams`, and only when the work
 genuinely branches, needs volume rather than your context, or benefits from
-an independent judgment. Never delegate small sequential edits to code you
-already hold in context — the handoff costs more than the work. When a
+an independent judgment. When a
 package's criteria are crisp and testable, failing tests written first are
 the strongest delegation contract; its rules live in
 `delegating-workstreams`. Delegation transfers work, not accountability.
@@ -137,7 +142,7 @@ Do not review every microscopic step.
   reconstruction would be more reliable.
 
 Escalating changes the topology — reconnaissance, an independent diagnosis,
-a higher review tier, a higher tier for the whole work — rather than
+an up-tier reviewer, a higher process tier for the whole work — rather than
 silently grinding.
 
 ## Completion

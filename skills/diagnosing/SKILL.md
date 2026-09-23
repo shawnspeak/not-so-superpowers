@@ -1,6 +1,6 @@
 ---
 name: diagnosing
-description: Use when the user brings a bug, regression, failure, or unexplained behavior whose cause is unknown — before designing or writing any fix. Guides evidence-driven root-cause investigation to a reproduction, a confirmed cause, and an approved fix contract. For a defect whose cause is already evident, implement the fix directly.
+description: Use when the user brings a bug, regression, failure, or unexplained behavior whose cause is unknown — before designing or writing any fix. Guides evidence-driven root-cause investigation to a reproduction, a confirmed cause, and an approved fix contract. A defect whose cause-to-symptom mechanism is already in view — not merely its crash site — is a clear change for routing-work.
 ---
 
 # Diagnosing
@@ -97,7 +97,8 @@ replaying the investigation. Apply the spec rules in `routing-work`.
 ## Handoff
 
 An approved fix contract goes to `leading-implementation`. If diagnosis
-uncovered several independent problems, give each its own contract.
+uncovered several independent problems, split the contract per
+`routing-work`.
 
 ## Portability
 

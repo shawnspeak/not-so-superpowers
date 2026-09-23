@@ -53,9 +53,10 @@ language is the engineering.
   before the first change; together they must let a *different session or
   model* pick up the work cold. Any handoff that crosses a session or model
   boundary — or may be lost to context compaction — must travel via a
-  file, not conversation; a light contract is promoted to a file the moment
-  that applies. The lead commits the spec file as the workspace's first
-  commit. This includes where the work lives: the Plan records the
+  file, not conversation; a light contract is promoted to a file — the lead
+  adding its Plan — the moment that applies. The lead commits the spec file
+  as the workspace's first commit, or as the next commit when promoted
+  mid-work. This includes where the work lives: the Plan records the
   workspace (branch or worktree) so a resumed session finds the work in
   progress without repo-state archaeology — the skills follow project
   branching convention rather than imposing one, and absent a convention
@@ -75,9 +76,9 @@ language is the engineering.
   Harness defaults (e.g. "commit only when asked", "use subagents only when
   asked") would otherwise stall the stack, so the skills say outright what
   invocation authorizes: bounded delegates and package commits on the
-  implementation workspace. When a skill engaged on its own at the direct
-  tier and the user neither invoked the stack nor approved a contract, the
-  lead asks once before the first commit. It never authorizes scripted multi-agent
+  implementation workspace. When a skill engaged on its own and the user
+  neither invoked the stack nor approved a contract, the lead asks once
+  before the first commit and once before the first delegate. It never authorizes scripted multi-agent
   orchestration runs, pushing, merging, history rewrites, or publishing to
   a shared channel — triage replies are approved as content with the contract,
   and posting them needs its own confirmation. Keep new grants explicit and
@@ -103,7 +104,7 @@ language is the engineering.
   the author's blind spots and is not independent). When the harness offers
   no independent reviewer, the lead's fallback self-review must be declared
   in the completion report; degraded independence is reported, never silent.
-  Reviewers report every material finding, labeled — filtering is the
+  Reviewers report every finding, labeled — filtering is the
   lead's call, made with the labels in view, never the reviewer's applied
   silently. The completion close-out checklist lives in
   `leading-implementation` (review can be skipped for low-risk work;
@@ -144,10 +145,10 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
   (`claude-code.md`, `codex.md`). The claude-code reference may name model
   tiers (`haiku`/`opus`/`fable`); the codex reference must NOT hard-code
   model names — it tells the lead to read them from the user's Codex config.
-- **Cross-skill consistency:** `leading-implementation` and
-  `triaging-findings` route all delegation through
-  `delegating-workstreams`, so anything declared delegable in one must
-  appear in the other's tier lists. When editing
+- **Cross-skill consistency:** `leading-implementation`,
+  `triaging-findings`, `diagnosing`, and `reviewing-work` route all
+  delegation through `delegating-workstreams`, so anything declared
+  delegable in one must appear in its tier lists. When editing
   delegation prose, grep all of them.
 - Every skill degrades gracefully: if subagents, model selection, or
   worktrees are unavailable, the lead does the work sequentially with the

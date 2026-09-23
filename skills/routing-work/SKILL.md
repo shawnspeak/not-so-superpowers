@@ -22,8 +22,9 @@ Size from that evidence, not from how the request is worded.
 - **Design-shaped** — a feature, or a problem with legitimate alternative
   solutions → `brainstorming`.
 - **Defect with an unknown cause** — a bug, regression, or unexplained
-  behavior → `diagnosing`. A defect whose cause is already evident is a
-  change, not a diagnosis.
+  behavior → `diagnosing`. A cause is evident only when the mechanism from
+  cause to symptom is already in view — not merely the line where the
+  failure erupts; only then is the defect a change, not a diagnosis.
 - **Batch of external findings** — a PR review, a scanner report, a pasted
   list → `triaging-findings`.
 - **Clear change** — intent unambiguous, one approach obviously right —
@@ -39,18 +40,19 @@ below, never from the route.
 
 Pick one tier: **full** if any full signal holds, **direct** if every
 direct condition holds, **light** otherwise. A tier the user names
-overrides the signals.
+overrides the signals; it sizes the artifacts, never the route.
 
 **Direct** — every one of these holds: the intent is unambiguous, one
-approach is obviously right, the change is local, it touches no public
-interface, schema, stored data, security, or concurrency, and a test or
-command can verify it. No spec: state in a line or two what will change and
+approach is obviously right, the change is local — one module, or one
+symbol and its uses inside the repository — it touches no public interface
+(anything consumed outside the repository), schema, stored data, security,
+or concurrency, and a test or command can verify it. No spec: state in a line or two what will change and
 how it will be verified, then implement.
 
 **Light** — everything between: typically the work needs a few decisions
 from the user, approval of a confirmed cause and fix, or is non-local but
-contained, and fits in the lead's session. Delegates at any tier do not
-change that. The spec is a compact contract stated in the conversation and
+contained, and fits in the lead's session. Delegation does not change
+that. The spec is a compact contract stated in the conversation and
 approved once. No file.
 
 **Full** — any one of these holds: the work will likely span sessions or be
@@ -66,7 +68,9 @@ the moment the work must survive the conversation: it is ending mid-work,
 it is long enough that context may be compacted before the work ends, or
 implementation will run in another session or be led by a different model
 than the one holding the conversation. The file records the approved
-contract as approved; it needs fresh approval only if its content changes.
+contract as approved, and the lead adds its Plan per
+`leading-implementation`; it needs fresh approval only if the contract
+changes.
 
 ## Spec rules (every entry skill)
 

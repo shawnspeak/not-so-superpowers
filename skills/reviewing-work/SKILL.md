@@ -61,7 +61,7 @@ material earns silence, not a section.
 
 ## Findings
 
-Report every material finding, labeled:
+Report every finding, labeled:
 
 - **Blocking** — violates the contract, breaks correctness, or introduces a
   risk in categories 2–4. Resolved and reverified before completion.

@@ -90,7 +90,7 @@ and labels in view, including every decline.
 
 Size it per `routing-work`: a handful of findings with local fixes is
 usually light — the register stated in the conversation — while a large
-batch, fixes that span sessions, or any finding on a full-tier surface
+batch, fixes that span sessions, or any fix on a full-tier surface
 such as security makes it full. The contract records:
 
 - the source and the full inventory count, so a reader can confirm nothing
