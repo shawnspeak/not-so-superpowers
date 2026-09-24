@@ -29,8 +29,8 @@ silent.
 
 Give the reviewer:
 
-- the approved contract being reviewed against — the spec file, or at the
-  light tier the contract restated in full;
+- the contract being reviewed against, carried as `delegating-workstreams`
+  directs for every brief;
 - the diff or artifacts;
 - the verification evidence already collected;
 - known tradeoffs and deliberate deviations, so they are not re-litigated;
@@ -64,7 +64,8 @@ material earns silence, not a section.
 Report every finding, labeled:
 
 - **Blocking** — violates the contract, breaks correctness, or introduces a
-  risk in categories 2–4. Resolved and reverified before completion.
+  risk in categories 2–4. Resolved before completion, with the
+  verification the fix affects rerun.
 - **Material** — worth fixing, does not gate completion; the decision is
   recorded either way.
 - **Minor** — noted briefly.

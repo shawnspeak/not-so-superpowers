@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p vendor/mailer notify tests docs/specs
 touch notify/__init__.py tests/__init__.py vendor/__init__.py
 cat > vendor/mailer/__init__.py <<'P'
@@ -24,6 +25,8 @@ cat > docs/specs/2026-09-07-digest.md <<'P'
 # Weekly digest email
 
 ## Contract
+
+Status: approved
 
 **Goal.** Each user receives one weekly digest email summarizing activity.
 

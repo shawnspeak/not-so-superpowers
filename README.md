@@ -29,9 +29,10 @@ conventions for changing them.
 | [`reviewing-work`](skills/reviewing-work/SKILL.md) | Independent review of logical outcomes and the aggregate against the contract |
 
 Workflow: `routing-work` classifies the request and sizes the process from
-repository evidence. A clear, local change goes straight to
-`leading-implementation` — no spec, just a stated change and its
-verification. Otherwise an idea goes through `brainstorming`, a bug with an
+repository evidence. A clear change needs no entry skill: at the direct
+tier it goes straight to `leading-implementation` — no spec, just a stated
+change and its verification — and at the light or full tier `routing-work`
+states its contract. Otherwise an idea goes through `brainstorming`, a bug with an
 unknown cause through `diagnosing`, and a batch of external review findings
 through `triaging-findings`, each ending in an approved contract: stated in
 the conversation for light work, or a spec file for full work that spans
@@ -73,9 +74,10 @@ Alternatively, skip the plugin and copy skill directories into
 
 **Upgrading from 0.7 or earlier** — `mapping-work` was folded into
 `leading-implementation`. Plugin installs pick this up on update. Re-run
-`./install-codex.sh` (with or without `--link`): it removes the stale
-`mapping-work` copy or symlink. Hand-copied installs should delete that
-directory themselves.
+`./install-codex.sh` (with or without `--link`): it removes a stale
+`mapping-work` symlink, or a copy it can match to a version this
+repository shipped, and leaves anything else under that name alone.
+Hand-copied installs should delete that directory themselves.
 
 **Codex** — Codex CLI has no plugin/marketplace mechanism; it discovers
 skills from `.agents/skills/` (project) or `~/.agents/skills/` (user). Run
@@ -95,8 +97,9 @@ and review boundaries.
 
 ## Validation
 
-- Structural: `tests/validate-structure.sh` — frontmatter, placeholders,
-  referenced files, cross-skill references, platform neutrality, body size.
+- Structural: `tests/validate-structure.sh` — frontmatter, skill
+  registration, placeholders, referenced files, cross-skill references,
+  removed-skill names, platform neutrality, body size.
 - Behavioral: [`evals/`](evals/README.md) — twelve `claude plugin eval`
   cases, each run with and without the plugin, covering process sizing,
   design collaboration, execution-mode selection, tier selection, coupling

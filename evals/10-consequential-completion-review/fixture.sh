@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p auth tests docs/specs
 touch auth/__init__.py tests/__init__.py
 cat > docs/specs/2026-09-08-session-expiry.md <<'P'
 # Session expiry
 
 ## Contract
+
+Status: approved
 
 **Goal.** Sessions expire after a configured lifetime; expired sessions are
 rejected.

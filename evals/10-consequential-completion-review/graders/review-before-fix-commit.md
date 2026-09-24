@@ -1,5 +1,5 @@
 ---
 type: tool_order
-before: Agent
-after: { tool: Bash, input_match: 'git commit' }
+before: { tool: Agent }
+after: { tool: Bash, input_match: 'git (add|commit)[^"]*\b(auth|tests)/' }
 ---

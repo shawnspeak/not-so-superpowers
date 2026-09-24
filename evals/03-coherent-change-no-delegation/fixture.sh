@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p shop tests docs/specs
 touch shop/__init__.py tests/__init__.py
 cat > shop/pricing.py <<'P'
@@ -69,6 +70,8 @@ cat > docs/specs/2026-09-01-regional-tax.md <<'P'
 # Regional tax rates
 
 ## Contract
+
+Status: approved
 
 **Goal.** Tax is charged at the rate for the order's region instead of a
 single global rate.

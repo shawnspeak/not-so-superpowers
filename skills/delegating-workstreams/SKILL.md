@@ -64,9 +64,9 @@ Every brief states, explicitly:
 
 1. **One objective** — a single outcome, not a list of chores;
 2. **Context** — only what is necessary: a path to the spec file when one
-   exists rather than restated prose; at the light tier, the approved
-   contract restated in full, since the delegate cannot see the
-   conversation;
+   exists rather than restated prose; otherwise the approved contract —
+   for a direct change, its statement of change and verification —
+   restated in full, since the delegate cannot see the conversation;
 3. **Ownership** — the exact files or subsystems the delegate may touch, and
    whether it may modify files at all;
 4. **Constraints and non-goals**;
@@ -103,8 +103,8 @@ delegate, never by the one that implements against them.
   isolation is unavailable, run editing delegates one at a time.
 - Delegates do not write history on the implementation workspace. An
   isolated delegate leaves its changes uncommitted and reports where its
-  workspace is; the lead brings the changes over, verifies them, commits
-  path-scoped, and removes the isolated workspace.
+  workspace is; the lead brings the changes over, verifies and commits
+  them per `leading-implementation`, and removes the isolated workspace.
 - If workstreams turn out tightly coupled, or integration becomes the
   dominant cost, **stop parallel edits and return ownership to the lead**.
   Absorbing two half-integrated diffs is worse than serial work.

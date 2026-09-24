@@ -24,27 +24,33 @@ contexts.
 - Implement **coherent vertical slices**, each verified by its own
   acceptance criteria and commands — not horizontal layers or micro-steps.
 - **Replan when evidence invalidates an assumption.** Evidence that only
-  changes sequencing updates the plan. Evidence that contradicts a material
-  contract assumption stops that path until the conflict is resolved with
-  the user.
+  changes sequencing updates the plan and is reported to the user without
+  waiting for approval. Evidence that contradicts a material contract
+  assumption stops that path until the conflict is resolved with the user.
 
 ## Plan against the repository
 
-If no tier is set, size the work per `routing-work` first.
+If the work arrived without a route or tier, classify and size it per
+`routing-work` first and follow its route: only a clear change or an
+approved contract is implemented here.
 
-Before the first change, inspect the code the contract touches and confirm
-its technical assumptions: the interfaces it names exist, the seams it
-relies on are real, the subsystems it partitions are separable. A wrong
-material assumption goes back to the user before any work is planned
+Before the first change, confirm the contract is approved — its spec file
+marks it approved, or the user approved it in this conversation; a draft
+goes back to the user — then inspect the code the contract touches and
+confirm its technical assumptions: the interfaces it names exist, the
+seams it relies on are real, the subsystems it partitions are separable. A
+wrong material assumption goes back to the user before any work is planned
 against it.
 
 If the spec file already has a Plan, this is a resumed session: run the
-same check against the packages that remain, confirm the workspace the
-Plan names matches reality, see which packages are already committed, and
+same check against the packages that remain and confirm the workspace the
+Plan names still exists — if it is gone or already merged, ask the user
+before recreating it. See which packages its history already holds and
 continue from there rather than replanning from scratch.
 
 At the direct tier the plan is the one-line statement of change and
-verification; the rest of this section applies to light and full work.
+verification, and the whole change is one package; the rest of this
+section applies to light and full work.
 
 Choose one execution mode from what inspection showed, and state the
 evidence for it:
@@ -61,18 +67,19 @@ evidence for it:
 Break the work into outcome-sized **packages** — usually one to eight. A
 package is an independently verifiable, independently committable result,
 never a timed micro-step: "rename the field, update the callers, fix the
-tests" is one package. Each records its outcome, dependencies, likely
-scope, acceptance criteria, verification commands, and risks where they
-apply.
+tests" is one package. Each records its outcome, the contract decisions
+that bind it, dependencies, likely scope, acceptance criteria,
+verification commands, and risks where they apply.
 
 The tier decides where the plan lives:
 
-- **light** — the plan stays in the lead's working context;
+- **light** — the plan stays in the lead's working context. The moment
+  the work must outlive the conversation, per `routing-work`, promote the
+  contract to a file and write its Plan as at the full tier;
 - **full** — the plan is written into the spec file's Plan section before
   the first change, opening with a `Workspace:` line that names the branch
   or worktree decided below, so a different session can resume from the
-  file alone. A light contract promoted to a file mid-work gets its Plan
-  section the same way, at promotion.
+  file alone.
 
 The plan records decisions that drive the work, never workspace state
 snapshots. A separate detailed procedure is warranted only when it has
@@ -85,9 +92,10 @@ procedure.
 
 Before the first change, settle the workspace — the branch or worktree the
 implementation lives on. Follow the project's branching convention when one
-exists. Otherwise, when the session sits on the default branch, create a
-dedicated feature branch: commits never land on the default branch unless
-the project's convention puts them there. Where there is no version
+exists. Otherwise, stay on the current branch only when it already belongs
+to this work; from the default branch or a branch holding unrelated work,
+create a dedicated feature branch. Commits never land on the default branch
+unless the project's convention puts them there. Where there is no version
 control, say so rather than inventing it.
 
 Check for pre-existing uncommitted changes at the same time. They belong to
@@ -125,7 +133,7 @@ genuinely branches, needs volume rather than your context, or benefits from
 an independent judgment. When a
 package's criteria are crisp and testable, failing tests written first are
 the strongest delegation contract; its rules live in
-`delegating-workstreams`. Delegation transfers work, not accountability.
+`delegating-workstreams`.
 
 ## Review at boundaries
 

@@ -26,6 +26,10 @@ for skill in $EXPECTED_SKILLS; do
     continue
   fi
   fm="$(sed -n '2,30p' "$md" | sed '/^---$/q')"
+  if ! printf '%s\n' "$fm" | grep -qx -- '---'; then
+    fail "$skill: frontmatter is not closed by '---' within 30 lines"
+    continue
+  fi
 
   name="$(printf '%s\n' "$fm" | sed -n 's/^name:[[:space:]]*//p' | head -1)"
   desc="$(printf '%s\n' "$fm" | sed -n 's/^description:[[:space:]]*//p' | head -1)"
@@ -39,6 +43,15 @@ for skill in $EXPECTED_SKILLS; do
   esac
 
   pass "$skill: frontmatter valid"
+done
+
+# A skill directory missing from EXPECTED_SKILLS would ship unvalidated.
+for dir in "$SKILLS_DIR"/*/; do
+  skill="$(basename "$dir")"
+  case " $EXPECTED_SKILLS " in
+    *" $skill "*) : ;;
+    *) fail "$skill: skill directory is not listed in EXPECTED_SKILLS" ;;
+  esac
 done
 
 echo "== Unresolved placeholders in skills/ =="
@@ -79,13 +92,31 @@ for md in "$SKILLS_DIR"/*/SKILL.md; do
 done
 [ "$XREF_FAIL" -eq 0 ] && pass "cross-skill references resolve"
 
+echo "== No references to removed skills =="
+# install-codex.sh's REMOVED_SKILLS is the one list of removed skills; no
+# file under skills/ may still name one, in frontmatter or body.
+if ! grep -q '^REMOVED_SKILLS="' "$ROOT/install-codex.sh"; then
+  fail "install-codex.sh: REMOVED_SKILLS not found"
+fi
+REMOVED_SKILLS="$(sed -n 's/^REMOVED_SKILLS="\(.*\)"$/\1/p' "$ROOT/install-codex.sh")"
+REMOVED_FAIL=0
+for gone in $REMOVED_SKILLS; do
+  if grep -rnw -- "$gone" "$SKILLS_DIR" >/dev/null 2>&1; then
+    grep -rnw -- "$gone" "$SKILLS_DIR"
+    fail "skills/ still names removed skill '$gone'"; REMOVED_FAIL=1
+  fi
+done
+[ "$REMOVED_FAIL" -eq 0 ] && pass "no removed skill is named"
+
 echo "== Core skills are platform-neutral =="
 # Core SKILL.md bodies may name harnesses when pointing at references/, but
-# must not require running a harness-specific command.
+# must not require running a harness-specific command: no backticked span
+# that runs codex or claude, bare or behind a prefix (npx, env assignments).
+PLATFORM_CMD='`([^`]*[^A-Za-z0-9_./`-])?(codex|claude)( [^`]*)?`'
 for md in "$SKILLS_DIR"/*/SKILL.md; do
   skill="$(basename "$(dirname "$md")")"
-  if grep -nE '`(codex|claude) ' "$md" >/dev/null 2>&1; then
-    grep -nE '`(codex|claude) ' "$md"
+  if grep -nE "$PLATFORM_CMD" "$md" >/dev/null 2>&1; then
+    grep -nE "$PLATFORM_CMD" "$md"
     fail "$skill: core skill requires a platform-specific command"
   else
     pass "$skill: no platform-specific command required"

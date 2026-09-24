@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p app
 touch app/__init__.py
 cat > app/db.py <<'P'

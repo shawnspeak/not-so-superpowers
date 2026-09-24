@@ -88,8 +88,8 @@ made changes (a worktree with no changes is cleaned up automatically).
 State in the brief that the delegate leaves its changes uncommitted and
 reports the worktree path. The lead then inspects the diff in that
 worktree, brings the changes into the implementation workspace (for
-example by applying the worktree's diff), verifies them there, commits
-path-scoped, and removes the worktree and its branch.
+example by applying the worktree's diff) to verify and commit them as the
+core skills direct, and removes the worktree and its branch.
 
 ## Enforce read-only
 

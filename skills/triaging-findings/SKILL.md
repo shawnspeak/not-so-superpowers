@@ -72,9 +72,8 @@ to the sweep and verified like the rest.
 
 Recommend exactly one disposition per finding, with its rationale:
 
-- **Fix** — with acceptance criteria; when they are crisp and testable,
-  name the test that encodes the failure scenario, failing before the fix
-  and passing after, written during implementation.
+- **Fix** — with acceptance criteria; for a defect, they include the
+  failure scenario encoded as the failing test `routing-work` requires.
 - **Decline** — with the refuting evidence or the reasoned tradeoff,
   drafted as the reply the reviewer will read.
 - **Defer** — with a concrete tracking action (an issue filed, a follow-up
@@ -88,10 +87,7 @@ and labels in view, including every decline.
 
 ## The triage contract
 
-Size it per `routing-work`: a handful of findings with local fixes is
-usually light — the register stated in the conversation — while a large
-batch, fixes that span sessions, or any fix on a full-tier surface
-such as security makes it full. The contract records:
+Size it per `routing-work`. The contract records:
 
 - the source and the full inventory count, so a reader can confirm nothing
   was dropped;

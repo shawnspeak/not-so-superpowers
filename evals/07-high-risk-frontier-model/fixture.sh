@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p migrations docs/specs
 cat > docs/specs/2026-09-05-phone-normalization.md <<'P'
 # Normalize phone numbers
 
 ## Contract
+
+Status: approved
 
 **Decisions.** The `users.phone` column is rewritten in place to E.164
 format. Rows whose phone cannot be normalized are left unchanged and

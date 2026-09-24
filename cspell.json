@@ -30,6 +30,9 @@
     "sqlite",
     "unittest",
     "scaffolded",
-    "ablation"
-  ]
+    "ablation",
+    "pycache",
+    "unvalidated"
+  ],
+  "ignoreRegExpList": ["/^(pattern|input_match|before|after): .*$/gm"]
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p core docs/specs
 touch core/__init__.py
 cat > core/dates.py <<'P'
@@ -21,6 +22,8 @@ cat > docs/specs/2026-09-04-date-locale.md <<'P'
 # Locale-aware dates
 
 ## Contract
+
+Status: approved
 
 **Decisions.** `format_date(d, style="iso")` becomes `format_date(d, locale)`:
 the `style` keyword is removed and `locale` is required.

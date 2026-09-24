@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p ledger tests docs/specs docs/guide
 touch ledger/__init__.py tests/__init__.py
 cat > ledger/store.py <<'P'
@@ -38,6 +39,8 @@ cat > docs/specs/2026-09-03-export.md <<'P'
 # Ledger export
 
 ## Contract
+
+Status: approved
 
 **Goal.** Users can export ledger entries for a date range as CSV or JSON.
 

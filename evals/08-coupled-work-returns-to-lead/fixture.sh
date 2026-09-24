@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p ledger tests docs/specs
 touch ledger/__init__.py tests/__init__.py
 cat > ledger/validation.py <<'P'
@@ -24,6 +25,8 @@ cat > docs/specs/2026-09-06-multicurrency.md <<'P'
 # Multi-currency ledger
 
 ## Contract
+
+Status: approved
 
 **Goal.** Entries carry a `currency` (ISO 4217 code); import rejects
 unknown currencies and reconciliation compares balances per currency.

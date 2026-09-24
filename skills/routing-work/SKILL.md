@@ -19,19 +19,20 @@ Size from that evidence, not from how the request is worded.
 
 ## Classify
 
-- **Design-shaped** — a feature, or a problem with legitimate alternative
-  solutions → `brainstorming`.
+- **Design-shaped** — a feature or problem with decisions the user must
+  make, or legitimate alternative solutions → `brainstorming`.
 - **Defect with an unknown cause** — a bug, regression, or unexplained
   behavior → `diagnosing`. A cause is evident only when the mechanism from
   cause to symptom is already in view — not merely the line where the
   failure erupts; only then is the defect a change, not a diagnosis.
 - **Batch of external findings** — a PR review, a scanner report, a pasted
   list → `triaging-findings`.
-- **Clear change** — intent unambiguous, one approach obviously right —
-  including a defect whose cause is evident. No entry skill is needed: at
-  the direct tier it goes straight to `leading-implementation`; at the light
-  or full tier this skill states the contract itself — goal, decisions,
-  non-goals, acceptance criteria — under the spec rules below.
+- **Clear change** — intent unambiguous, one approach obviously right, no
+  decision left for the user — including a defect whose cause is evident.
+  No entry skill is needed: at the direct tier it goes straight to
+  `leading-implementation`; at the light or full tier this skill states the
+  contract itself — goal, decisions, non-goals, acceptance criteria — under
+  the spec rules below.
 
 Classification picks the route; the tier comes from the sizing rules
 below, never from the route.
@@ -40,14 +41,16 @@ below, never from the route.
 
 Pick one tier: **full** if any full signal holds, **direct** if every
 direct condition holds, **light** otherwise. A tier the user names
-overrides the signals; it sizes the artifacts, never the route.
+overrides the signals; it sizes the artifacts, never the route. When a
+named tier waives a full signal, name that signal and have the user confirm
+the lower tier before proceeding.
 
 **Direct** — every one of these holds: the intent is unambiguous, one
 approach is obviously right, the change is local — one module, or one
 symbol and its uses inside the repository — it touches no public interface
 (anything consumed outside the repository), schema, stored data, security,
-or concurrency, and a test or command can verify it. No spec: state in a line or two what will change and
-how it will be verified, then implement.
+or concurrency, and a test or command can verify it. No spec: state in a
+line or two what will change and how it will be verified, then implement.
 
 **Light** — everything between: typically the work needs a few decisions
 from the user, approval of a confirmed cause and fix, or is non-local but
@@ -67,23 +70,30 @@ subsystem, a decision only the user can make. A light spec becomes a file
 the moment the work must survive the conversation: it is ending mid-work,
 it is long enough that context may be compacted before the work ends, or
 implementation will run in another session or be led by a different model
-than the one holding the conversation. The file records the approved
-contract as approved, and the lead adds its Plan per
+than the one holding the conversation. The file records the contract,
+marked approved, and the lead adds its Plan per
 `leading-implementation`; it needs fresh approval only if the contract
 changes.
 
-## Spec rules (every entry skill)
+## Spec rules (every contract)
 
 A spec is a contract, not a transcript: every sentence binds the
 implementation or carries evidence the next reader needs. Each entry skill
 lists what its contract records; every contract ends in acceptance
-criteria.
+criteria. A defect fix's criteria include a test encoding the failure —
+failing before the fix, passing after — wherever the codebase makes that
+feasible; the lead writes it during implementation. At the direct tier that
+test is the stated verification.
 
 At the full tier the spec lives in the project's documentation location
 (for example `docs/specs/YYYY-MM-DD-<topic>.md`) with two sections:
 
-- **Contract** — written by the entry skill, approved by the user. It
-  changes only with the user's approval.
+- **Contract** — written by the entry skill, or by this skill for a clear
+  change, and approved by the user. It opens with its status line —
+  `Status: draft` until the user approves the written contract, then
+  `Status: approved` — so a cold reader never implements a draft. It
+  changes only with the user's approval; a proposed change returns it to
+  draft until approved.
 - **Plan** — written by the implementation lead before the first change,
   per `leading-implementation`, and revised freely with a note of why. The
   entry skill leaves it for the lead.

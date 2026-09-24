@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 git init -q -b main . && git config user.email dev@example.com && git config user.name Dev
+printf '__pycache__/\n' > .gitignore
 mkdir -p docs/specs config scripts ops/dashboards
 for svc in billing shipping catalog notifications search accounts reviews inventory; do
   mkdir -p "services/$svc"
@@ -39,19 +40,20 @@ cat > docs/specs/2026-09-02-account-rename.md <<'P'
 
 ## Contract
 
+Status: approved
+
 **Goal.** The domain concept "customer" is renamed "account" everywhere it
 appears in identifiers, payload keys, and configuration keys.
 
 **Decisions.** `customer_id` → `account_id`, `customer_tier` →
-`account_tier`, `customer_cache_ttl` → `account_cache_ttl`. The concept is
-believed to appear only under `services/` and `config/`, but this has not
-been verified.
+`account_tier`, `customer_cache_ttl` → `account_cache_ttl`. The concept
+appears under `services/` and `config/`.
 
 **Non-goals.** Data migration of stored records; backwards-compatible aliases.
 
 **Acceptance criteria.**
-1. No identifier, payload key, or configuration key anywhere in the
-   repository still uses the "customer" name.
+1. No identifier, payload key, or configuration key outside `docs/` still
+   uses the "customer" name.
 2. Every Python module still imports cleanly.
 P
 git add -A && git commit -qm "Services, config, and account rename spec"

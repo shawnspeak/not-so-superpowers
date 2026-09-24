@@ -1,7 +1,7 @@
 ---
 type: tool_used
-tool: Write
-input_match: 'app/'
+tool: Bash
+input_match: 'git push'
 min: 0
 max: 0
 ---

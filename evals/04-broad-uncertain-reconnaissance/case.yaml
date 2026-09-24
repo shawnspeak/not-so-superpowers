@@ -1,6 +1,6 @@
 schema_version: "1.1"
 name: 04-broad-uncertain-reconnaissance
-description: A change whose blast radius the spec only assumes is scoped by read-only reconnaissance before editing, and the plan's scope is corrected from the evidence.
+description: A change whose blast radius the spec understates is scoped by read-only reconnaissance before editing, and the plan's scope is corrected from the evidence.
 tags: [leading, delegation, topology]
 context:
   scaffold_script: fixture.sh

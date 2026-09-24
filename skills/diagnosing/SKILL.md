@@ -77,9 +77,7 @@ it through `brainstorming` as its own contract.
 
 ## The fix contract
 
-Size it per `routing-work`: a local fix is usually light — the contract
-stated in the conversation — and a risky or cross-cutting one is full. The
-contract records:
+Size it per `routing-work`. The contract records:
 
 - the symptom and its impact;
 - the reproduction — exact steps and inputs, observed versus expected,
@@ -87,9 +85,8 @@ contract records:
 - the root cause with its evidence chain, and rejected hypotheses in brief;
 - the chosen fix, and regression risk — what it could plausibly break;
 - non-goals — nearby flaws deliberately left alone;
-- acceptance criteria — at minimum, the reproduction encoded as a test that
-  fails before the fix and passes after, wherever the codebase makes that
-  feasible. The lead writes that test during implementation.
+- acceptance criteria — at minimum, the reproduction encoded as the
+  failing test `routing-work` requires of every defect fix.
 
 Spend precision on the reproduction; elsewhere, cite evidence rather than
 replaying the investigation. Apply the spec rules in `routing-work`.

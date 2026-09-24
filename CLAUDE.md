@@ -4,8 +4,9 @@ Portable seven-skill orchestration stack for Claude Code and Codex:
 `routing-work` sizes and routes the work → `brainstorming` (design),
 `diagnosing` (root-cause investigation), or `triaging-findings` (external
 review triage) → `leading-implementation`, with `delegating-workstreams` and
-`reviewing-work` as support skills. A clear change routes straight to
-`leading-implementation`. The product
+`reviewing-work` as support skills. A clear change needs no entry skill:
+at the direct tier it goes straight to `leading-implementation`, and at
+the light or full tier `routing-work` states its contract. The product
 of this repo is skill *prose* — there is no application code. Editing here
 means editing instructions that a frontier model will follow, so precision of
 language is the engineering.
@@ -19,18 +20,24 @@ language is the engineering.
   for work that spans sessions or models, crosses subsystems, or touches
   interfaces, data, security, or destructive operations). The tier sizes
   artifacts and approval gates, never the rigor of the method: diagnosis
-  still reproduces first and triage still verifies every finding at every
-  tier. Tier changes are announced; a light contract becomes a file the
-  moment the work must survive the session. Never add prose that forces
-  full-tier ceremony onto work the sizing rules call direct or light.
+  still reproduces first, triage still verifies every finding, and every
+  defect fix is proven by a test that fails before it, at every tier. A
+  tier the user names overrides the evidence, but waiving a full-tier
+  signal is named and confirmed with the user. Tier changes are announced;
+  a light contract becomes a file the moment the work must survive the
+  session. Never add prose that forces full-tier ceremony onto work the
+  sizing rules call direct or light.
 - **Three entry points, one downstream contract.** Features and design-shaped
   problems enter through `brainstorming`; defects with an unknown cause
   enter through `diagnosing`; batches of external review findings — a PR
   review, a scanner report, a pasted list — enter through
   `triaging-findings`. All end in an approved contract that `leading-implementation`
   consumes identically — the pipeline downstream of the contract never
-  forks. Diagnosis is evidence-driven and leaves the codebase unchanged:
-  reproduction before theory, one hypothesis at a time, cause confirmed by
+  forks; a clear change that needs a contract gets it from `routing-work`.
+  Design grounds itself in the code, batches independent questions with
+  recommended answers, and iterates on an early concrete draft rather than
+  walking the design section by section. Diagnosis is evidence-driven and
+  leaves the codebase unchanged: reproduction before theory, one hypothesis at a time, cause confirmed by
   mechanism/prediction/history before any fix is designed. Its acceptance
   criteria name a test encoding the reproduction, which the lead writes
   during implementation — dovetailing with the failing-tests-first
@@ -49,9 +56,11 @@ language is the engineering.
   encourages fragmenting coupled work across fresh contexts.
 - **Durable artifacts at every cross-session handoff.** A full-tier spec
   file (`docs/specs/YYYY-MM-DD-<topic>.md`) holds a **Contract** section,
-  written by the entry skill, and a **Plan** section, written by the lead
-  before the first change; together they must let a *different session or
-  model* pick up the work cold. Any handoff that crosses a session or model
+  written by the entry skill (or `routing-work` for a clear change), and a
+  **Plan** section, written by the lead before the first change; together
+  they must let a *different session or model* pick up the work cold, so
+  the Contract carries its approval status and a cold reader never
+  implements a draft. Any handoff that crosses a session or model
   boundary — or may be lost to context compaction — must travel via a
   file, not conversation; a light contract is promoted to a file — the lead
   adding its Plan — the moment that applies. The lead commits the spec file
@@ -138,6 +147,9 @@ language is the engineering.
 - Every backticked bare lowercase token in a SKILL.md body is read as a
   skill name and must be one of `EXPECTED_SKILLS` — so a reference to a
   removed or renamed skill fails validation.
+- Every skill directory must be listed in `EXPECTED_SKILLS`, and no file
+  under `skills/` may name a skill in `install-codex.sh`'s
+  `REMOVED_SKILLS`.
 
 Run `bash tests/validate-structure.sh` after **every** skill edit.
 
@@ -145,7 +157,7 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
 
 - Harness-specific mechanics live only in `delegating-workstreams/references/`
   (`claude-code.md`, `codex.md`). The claude-code reference may name model
-  tiers (`haiku`/`opus`/`fable`); the codex reference must NOT hard-code
+  tiers (`haiku`/`sonnet`/`opus`/`fable`); the codex reference must NOT hard-code
   model names — it tells the lead to read them from the user's Codex config.
 - **Cross-skill consistency:** `leading-implementation`,
   `triaging-findings`, `diagnosing`, and `reviewing-work` route all
@@ -183,6 +195,8 @@ Run `bash tests/validate-structure.sh` after **every** skill edit.
 - Codex installs via `./install-codex.sh` (copy or `--link` symlink into
   `.agents/skills/`). New skill directories are picked up automatically by
   both mechanisms, but a new skill must also be added to `EXPECTED_SKILLS`
-  in `tests/validate-structure.sh` and the README table.
+  in `tests/validate-structure.sh` and the README table. A removed skill
+  goes into `REMOVED_SKILLS` in `install-codex.sh`, which prunes its stale
+  installs and which the validator reads to reject lingering references.
 - `cspell.json` holds the project vocabulary; add new coined terms there so
   spell-checking stays clean.

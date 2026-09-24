@@ -35,9 +35,15 @@ skill's tiers to whatever models the user's Codex configuration exposes:
 
 - lesser model → the smaller/faster model available in the configuration,
   for bounded low-ambiguity work;
-- peer/frontier → the same model the lead runs on, for ambiguous, coupled,
-  or consequential work. Omitting `-m` uses the configured default, which
-  is the safe choice when unsure.
+- peer → the model the lead runs on, for ambiguous, coupled, or
+  consequential work, when the lead runs on one of the configuration's
+  stronger models. Omitting `-m` uses the configured default, which is
+  safe only when that default is at least the lead's model. A lead running
+  on a lesser model never delegates peer work to itself — it names a
+  stronger model from the configuration;
+- frontier → the strongest model the configuration exposes, when the lead
+  runs below it and needs to delegate up — adversarial final review,
+  architecture-changing diagnosis, security judgment.
 
 Do not hard-code model names in briefs; read them from the user's config or
 ask once.
@@ -70,4 +76,5 @@ worktrees cannot be created, run the editing delegates one at a time.
 
 The delegate leaves its changes uncommitted in its worktree. The lead then
 inspects the diff there, brings the changes into the implementation
-workspace, verifies them, commits path-scoped, and removes the worktree.
+workspace to verify and commit them as the core skills direct, and removes
+the worktree.
