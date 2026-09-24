@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 05-partitioned-workstreams
+description: Work that splits along real seams behind a fixed interface uses non-overlapping, isolated delegates; the lead owns the interface, integration, and every commit.
+tags: [leading, delegation, topology]
+context:
+  scaffold_script: fixture.sh

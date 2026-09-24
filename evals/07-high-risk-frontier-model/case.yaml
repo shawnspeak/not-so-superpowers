@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 07-high-risk-frontier-model
+description: A review of a destructive migration, asked for without naming how, goes to an independent peer or frontier reviewer in a fresh context with the full review brief.
+tags: [delegation, tiers, review]
+context:
+  scaffold_script: fixture.sh

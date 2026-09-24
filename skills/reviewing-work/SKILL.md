@@ -1,6 +1,6 @@
 ---
 name: reviewing-work
-description: Use when a complete logical slice or the aggregate implementation needs review against an approved spec — at risk-appropriate boundaries and before consequential completion. Defines the review brief, evaluation order, and completion evidence.
+description: Use when a complete logical slice or the aggregate implementation needs review against an approved contract — at risk-appropriate boundaries and before consequential completion. Defines reviewer independence, the review brief, evaluation order, and finding labels.
 ---
 
 # Reviewing Work
@@ -11,78 +11,67 @@ coherent outcome whose defects would be expensive to discover later.
 
 ## Who reviews
 
-Match reviewer independence to consequence. At routine boundaries, the
-reviewer may be a delegate, a peer model, or the lead re-reading with fresh
-eyes. Before **consequential completion** — authentication, data migrations,
-public APIs, anything where a shipped defect is expensive — the reviewer
-must be independent of the lead: a delegate or peer model (up-tier where
-warranted, per `delegating-workstreams`) that did not write the changes.
-The author re-reading their own work is not independent, however fresh the
-eyes — and neither is a delegate that inherits the lead's conversation
-context. Independence requires a fresh context that sees only the review
-brief.
+At routine boundaries the reviewer may be a delegate, a peer model, or the
+lead re-reading as a deliberate separate pass. Before **consequential
+completion** — authentication, data migrations, public interfaces, anything
+where a shipped defect is expensive — the reviewer must be independent of
+the lead: a delegate or peer model, up-tier where warranted per
+`delegating-workstreams`, that did not write the changes and works in a
+fresh context that sees only the review brief. A delegate that inherits the
+lead's conversation shares the author's blind spots and is not independent.
 
-When no independent reviewer is available — no subagents or peer model in
-the harness — the lead falls back to reviewing as a deliberate separate
-pass with the full brief below, and the completion report must state that
-the review was not independent and why. Degraded independence is reported,
-never silent.
+When no independent reviewer is available, the lead reviews as a separate
+pass with the full brief, and the completion report states that the review
+was not independent and why. Degraded independence is reported, never
+silent.
 
 ## The review brief
 
-Whoever reviews, give them:
+Give the reviewer:
 
-- the approved spec (the contract being reviewed against);
-- the relevant diff or artifacts;
-- the verification evidence already collected (test output, command results);
-- the known tradeoffs and deliberate deviations, so they are not re-litigated;
-- an **explicit request to search for missing requirements and failure
-  modes** — what the implementation does not handle, not just whether what
-  it does is pretty.
+- the contract being reviewed against, carried as `delegating-workstreams`
+  directs for every brief;
+- the diff or artifacts;
+- the verification evidence already collected;
+- known tradeoffs and deliberate deviations, so they are not re-litigated;
+- an explicit request to search for missing requirements and failure
+  modes — what the implementation does not handle, not only whether what it
+  does is well written.
 
-A reviewer without the spec can only check style; that is not this skill.
+A reviewer without the contract can only check style; that is not this
+skill.
 
 ## Evaluation order
 
-Evaluate in this order, so scarce attention lands on what matters most:
+Spend attention in this order:
 
-1. **Acceptance-criteria and spec compliance** — is each criterion met, with
-   evidence? Is anything in the spec silently unimplemented?
-2. **Correctness and failure behavior** — does it work, and what happens on
-   bad input, partial failure, or unexpected state?
-3. **Regressions and compatibility** — what existing behavior, callers, or
-   data does this change break?
-4. **Security, concurrency, migration, and operational risks** — where the
-   change touches them.
-5. **Maintainability and fit** — does it follow the repository's
-   conventions, or fight them? Is it over-built — abstractions, options,
-   or defenses beyond what the spec demands?
-6. **Adequacy of verification** — do the tests and checks actually establish
-   the acceptance criteria, or just pass?
+1. **Contract compliance** — is each acceptance criterion met, with
+   evidence? Is anything silently unimplemented?
+2. **Correctness and failure behavior** — bad input, partial failure,
+   unexpected state.
+3. **Regressions and compatibility** — existing behavior, callers, data.
+4. **Security, concurrency, migration, operational risk** — where touched.
+5. **Maintainability and fit** — repository conventions followed or
+   fought; anything over-built beyond what the contract demands.
+6. **Adequacy of verification** — do the checks establish the criteria, or
+   merely pass?
 
-The order structures attention, not the report: findings are the output,
-and a category with nothing material earns silence, not a section.
+The order structures attention, not the report: a category with nothing
+material earns silence, not a section.
 
 ## Findings
 
-Report every material finding, classified:
+Report every finding, labeled:
 
-- **Blocking** — violates the spec, breaks correctness, or introduces a
-  risk in category 2–4. Must be resolved and **reverified** before
-  completion; rerun the focused verification the fix affects.
-- **Material, non-blocking** — worth fixing, does not gate completion;
-  record the decision either way.
-- **Minor** — note briefly; do not let it crowd out the above.
+- **Blocking** — violates the contract, breaks correctness, or introduces a
+  risk in categories 2–4. Resolved before completion, with the
+  verification the fix affects rerun.
+- **Material** — worth fixing, does not gate completion; the decision is
+  recorded either way.
+- **Minor** — noted briefly.
 
-A finding without a concrete failure scenario or spec citation is an
-opinion; report it labeled as such rather than dropping it. The reviewer
-reports and labels; deciding what to act on is the lead's filter, applied
-with the labels in view — never the reviewer's, applied silently.
-
-## After review: the lead closes out
-
-Review does not end the work. The lead runs the completion sequence in
-`leading-implementation` — full validation, aggregate diff, acceptance
-criteria against evidence, explicit report — once, at completion, not
-repeated after every review. A reviewer's approval is input to that
-close-out, never a substitute for it.
+A finding without a concrete failure scenario or contract citation is an
+**opinion**; report it labeled as such rather than dropping it. The
+reviewer reports and labels; the lead decides what to act on, with the
+labels in view. A reviewer's approval is input to the lead's completion
+close-out in `leading-implementation`, never a substitute for it.

@@ -11,7 +11,7 @@ calling it.
 
 Use the **Agent** tool. Put the entire delegate brief in the `prompt`
 parameter — a fresh subagent sees nothing of the lead's conversation. Link
-durable artifacts by file path (the spec, the execution map) so the
+durable artifacts by file path (the spec file, when one exists) so the
 delegate reads them itself. Launch independent delegates in one message so
 they run concurrently.
 
@@ -53,9 +53,11 @@ skill's tiers:
   mechanical sweeps; `sonnet` for bounded implementation — an isolated
   package behind a defined interface, or making a pre-written failing test
   suite pass — where the smallest tier tends to underdeliver;
-- peer → `opus` or the session's own model for ambiguous, coupled, or
-  consequential work; omitting `model` typically inherits the lead's model,
-  which is the safe default when unsure;
+- peer → `opus`, or the session's own model when the lead runs on `opus`
+  or above, for ambiguous, coupled, or consequential work; omitting `model`
+  typically inherits the lead's model, which is the safe default when the
+  lead is at least a peer-tier model. A lead running on a lesser model
+  never inherits itself for peer work — it names `opus` or above;
 - frontier → a top-tier model such as `fable`, where available, when the
   lead itself runs below the frontier and needs to delegate up — adversarial
   final review, architecture-changing diagnosis, security judgment.
@@ -86,8 +88,8 @@ made changes (a worktree with no changes is cleaned up automatically).
 State in the brief that the delegate leaves its changes uncommitted and
 reports the worktree path. The lead then inspects the diff in that
 worktree, brings the changes into the implementation workspace (for
-example by applying the worktree's diff), verifies them there, commits
-path-scoped, and removes the worktree and its branch.
+example by applying the worktree's diff) to verify and commit them as the
+core skills direct, and removes the worktree and its branch.
 
 ## Enforce read-only
 

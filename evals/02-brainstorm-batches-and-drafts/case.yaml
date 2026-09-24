@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 02-brainstorm-batches-and-drafts
+description: A design-shaped request is grounded in the code, independent questions are batched with recommendations, and a concrete draft arrives early.
+tags: [routing, brainstorming]
+context:
+  scaffold_script: fixture.sh

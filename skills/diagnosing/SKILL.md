@@ -1,135 +1,104 @@
 ---
 name: diagnosing
-description: Use when the user brings a bug, regression, failure, or unexplained behavior whose cause is unknown — before designing or writing any fix. Guides evidence-driven root-cause investigation to a reproduction, a confirmed cause, and an approved fix spec.
+description: Use when the user brings a bug, regression, failure, or unexplained behavior whose cause is unknown — before designing or writing any fix. Guides evidence-driven root-cause investigation to a reproduction, a confirmed cause, and an approved fix contract. A defect whose cause-to-symptom mechanism is already in view — not merely its crash site — is a clear change for routing-work.
 ---
 
 # Diagnosing
 
 Converge on the true cause of a reported problem through evidence, then turn
-that understanding into an approved fix spec. The output is a durable written
-contract for what must be fixed and why — it is not the fix itself.
-
-`brainstorming` explores a design space where several answers are
-legitimate; diagnosing converges on a single truth the system already
-contains. Do not compare solutions until the cause is confirmed.
+that understanding into an approved fix contract. `brainstorming` explores a
+design space where several answers are legitimate; diagnosing converges on
+the single truth the system already contains. Do not compare fixes until
+the cause is confirmed.
 
 ## Boundary
 
-This skill is for problems brought as the task — a bug report, a regression,
-a failure the user wants explained. Failures that surface mid-implementation
-(a red verification, a delegate's broken result) stay with the lead under
-`leading-implementation`, which already routes stuck or architecture-changing
-diagnosis through delegation. A batch of findings arriving from an external
-review enters through `triaging-findings`, which routes an individual
-finding here when its symptom is real but its mechanism is unknown.
+This skill is for problems brought as the task. Failures that surface
+mid-implementation stay with the lead under `leading-implementation`. A
+batch of findings from an external review enters through
+`triaging-findings`, which routes a finding here when its symptom is real
+but its mechanism is unknown.
 
-## Ground in what exists
+## Evidence before questions
 
-Read the code paths the symptom implicates, the relevant configuration, the
-logs and error output, and recent history before theorizing. For a
-regression, version-control history is the sharpest instrument: find when
-the behavior changed and what landed then (bisect when the repository
-supports it). Never diagnose against an imagined codebase.
+Read the code paths the symptom implicates, the configuration, the logs and
+error output, and recent history before theorizing. For a regression,
+version control is the sharpest instrument: find when the behavior changed
+and what landed then — bisect when the repository supports it. Never
+diagnose against an imagined codebase.
 
-Clarify the symptom with the user one question at a time, favoring questions
-whose answers discriminate between candidate causes: expected versus actual
-behavior, when it started, environment, whether it reproduces reliably.
+Ask the user only what the evidence cannot settle — expected versus actual
+behavior, environment, frequency — batching the independent questions and
+favoring those whose answers discriminate between candidate causes.
 
 ## Reproduce before theorizing
 
-A diagnosis without a reproduction is a guess. Before proposing any cause:
-
-- reproduce the failure yourself, recording the exact commands and inputs;
-- minimize the reproduction — strip everything that does not change the
-  outcome;
-- if the failure cannot be reproduced, that becomes the investigation —
-  what differs between the reporting environment and yours is now the
-  question. If you must proceed on partial evidence, the spec says so
-  explicitly.
+A diagnosis without a reproduction is a guess. Reproduce the failure
+yourself, recording the exact commands and inputs, then minimize it — strip
+everything that does not change the outcome. If it will not reproduce, that
+becomes the investigation: what differs between the reporting environment
+and yours. If you must proceed on partial evidence, the contract says so.
 
 ## Investigate by hypothesis
 
 Work one hypothesis at a time, stated before it is tested. Prefer the
-experiment that could disprove the hypothesis fastest over the one that
-would confirm it comfortably. Instrument, isolate, and bisect rather than
-stare. Keep a short written trail of hypotheses rejected and the evidence
-that killed each; the trail goes in the spec so the next reader does not
-re-walk dead ends.
+experiment that could disprove it fastest over the one that would confirm
+it comfortably. Instrument, isolate, and bisect rather than stare. Keep a
+short trail of rejected hypotheses and the evidence that killed each, so
+the next reader does not re-walk dead ends.
 
-Investigation leaves the codebase unchanged: do not fix, refactor, or clean
-up while in there. Temporary instrumentation is removed before the
-investigation ends.
-If the harness offers delegation, bounded read-only reconnaissance of
-candidate subsystems may be dispatched per `delegating-workstreams`; its
-absence never blocks — investigate sequentially.
+Investigation leaves the codebase unchanged: no fixing, refactoring, or
+cleanup, and temporary instrumentation is removed before it ends. Bounded
+read-only reconnaissance of candidate subsystems may be delegated per
+`delegating-workstreams`; without delegation, investigate sequentially.
 
 ## Confirm the root cause
 
 A cause is confirmed when three things hold:
 
-1. **Mechanism** — you can explain the chain from cause to observed symptom
-   with no hand-waved link;
+1. **Mechanism** — the chain from cause to symptom has no hand-waved link;
 2. **Prediction** — toggling the cause toggles the symptom in the
    reproduction;
 3. **History** — it explains why the problem appears when and where it
    does, and not elsewhere.
 
 Distinguish the root cause from the place the symptom erupts; patching the
-eruption site is how the bug comes back. If several contributing causes
-exist, record all of them and say which ones the fix will address.
+eruption site is how the bug comes back. When several causes contribute,
+record all of them and say which the fix addresses.
 
-## Compare fix approaches
+## Choose the fix
 
-With the cause confirmed, present the plausible fixes with honest
-tradeoffs — typically the minimal targeted fix versus a deeper correction of
-the flaw that allowed the bug. Recommend one and say why; let the user
-choose. A fix whose blast radius exceeds the bug's is a design effort:
-recommend taking it through `brainstorming` as its own spec rather than
-expanding this diagnosis.
+Present the plausible fixes with honest tradeoffs — typically the minimal
+targeted fix versus a deeper correction of the flaw that allowed the bug —
+recommend one, and let the user choose. When one fix is plainly right,
+present the cause, its evidence, and that fix together for a single
+approval. A fix whose blast radius exceeds the bug's is design work: take
+it through `brainstorming` as its own contract.
 
-## Write the fix spec
+## The fix contract
 
-Write a durable spec to the project's documentation location (for example
-`docs/specs/YYYY-MM-DD-<topic>.md` — the same convention as design specs).
-It records:
+Size it per `routing-work`. The contract records:
 
 - the symptom and its impact;
-- the reproduction — exact steps, inputs, observed versus expected;
-- the root cause with its evidence chain, plus rejected hypotheses in brief;
-- the chosen fix approach and what was rejected;
-- regression risk — what the fix could plausibly break;
+- the reproduction — exact steps and inputs, observed versus expected,
+  precise enough that encoding it as a test needs no rediscovery;
+- the root cause with its evidence chain, and rejected hypotheses in brief;
+- the chosen fix, and regression risk — what it could plausibly break;
 - non-goals — nearby flaws deliberately left alone;
-- acceptance criteria — at minimum, that the reproduction is encoded as a
-  test that fails before the fix and passes after, wherever the codebase
-  makes that feasible.
+- acceptance criteria — at minimum, the reproduction encoded as the
+  failing test `routing-work` requires of every defect fix.
 
-Writing that failing test is deliberately left to implementation, but the
-spec must describe the reproduction precisely enough that encoding it
-requires no rediscovery. Downstream, that test is the preferred delegation
-contract.
-
-The spec is a contract, not an investigation log: every sentence either
-binds the fix or carries evidence the next reader needs. Spend precision
-on the reproduction; elsewhere, cite evidence rather than replaying the
-investigation.
-
-Self-review the spec against the investigation for anything found but
-omitted, anything asserted but never evidenced, and internal
-contradictions — and cut prose that neither binds nor carries evidence.
-Then require the user to review the written document
-itself. Conversational agreement is not approval; the file is the contract.
+Spend precision on the reproduction; elsewhere, cite evidence rather than
+replaying the investigation. Apply the spec rules in `routing-work`.
 
 ## Handoff
 
-An approved fix spec transitions to `mapping-work`, exactly as a design
-spec does. Most fixes will map to a coherent-change mode with few
-packages — but that is mapping-work's decision, made against repository
-evidence. If diagnosis uncovered multiple independent problems, split them
-into separate specs, each approved on its own.
+An approved fix contract goes to `leading-implementation`. If diagnosis
+uncovered several independent problems, split the contract per
+`routing-work`.
 
 ## Portability
 
-Assume no specific debugger, tracer, or platform facility. Use what the
-project offers — test runner, logging, bisect — when it helps, but the
-method is tool-independent: reproduction, hypothesis, evidence. The absence
-of any given tool must never block a diagnosis.
+Assume no specific debugger, tracer, or platform facility. The method —
+reproduction, hypothesis, evidence — is tool-independent, and the absence
+of any given tool never blocks a diagnosis.

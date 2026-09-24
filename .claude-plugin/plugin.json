@@ -1,5 +1,5 @@
 {
   "name": "not-so-superpowers",
-  "description": "Frontier orchestration skill stack: brainstorm, diagnose, triage, map, lead, delegate, review",
-  "version": "0.7.4"
+  "description": "Frontier orchestration skill stack: route, brainstorm, diagnose, triage, lead, delegate, review",
+  "version": "0.8.0"
 }

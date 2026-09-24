@@ -1,147 +1,122 @@
 ---
 name: delegating-workstreams
-description: Use when the implementation lead decides to hand a bounded objective to a subagent — reconnaissance, an isolated workstream, adversarial checks, or independent diagnosis. Defines delegate briefs, ownership rules, and capability-tier model selection.
+description: Use when the implementation lead, a diagnosis, a triage, or a review decides to hand a bounded objective to a subagent — reconnaissance, an isolated workstream, a mechanical sweep, finding verification, adversarial checks, independent diagnosis, or review. Defines delegate briefs, ownership rules, and capability-tier model selection.
 ---
 
 # Delegating Workstreams
 
-Use the harness's native subagent facilities only for bounded objectives that
+Use the harness's subagent facilities only for bounded objectives that
 benefit from a separate context. Delegation transfers work, not
 accountability: the lead shapes the brief, inspects the returned evidence,
-and integrates the result. Invoking this stack is the user's permission to
-use subagents: never skip a delegation these skills direct — reviews
-included — on the grounds that the user did not explicitly ask for one.
-That permission covers bounded delegates the lead briefs and integrates
-itself; it never authorizes a scripted multi-agent orchestration run,
-which requires the user's own explicit request.
+and integrates the result.
 
-Once an objective is delegated, do not also pursue it yourself — work on
-something else or wait. Never act on, report, or predict a delegate's
-result before it has actually returned.
+Invoking this stack, or approving a contract under it, is the user's
+permission to use subagents: never skip a delegation these skills direct —
+reviews included — because the user did not explicitly ask for one. When a
+skill engaged on its own and the user did neither, ask once before the
+first delegate. The permission covers bounded delegates the
+lead briefs and integrates itself; it never authorizes a scripted
+multi-agent orchestration run, which needs the user's own explicit request.
+Once an objective is delegated, do not also pursue it yourself, and never
+act on, report, or predict a delegate's result before it has returned.
 
-## Suitable objectives
+## What to delegate, and to which tier
 
-- read-only repository reconnaissance;
-- investigation of a contained subsystem;
-- implementation of an isolated package behind a stable interface;
-- implementation of a package against a pre-written failing test suite;
-- high-volume mechanical sweeps (bulk renames, repetitive scaffolding,
-  boilerplate) that need volume, not the lead's context;
-- adversarial test derivation against stated acceptance criteria;
-- verification or refutation of a single review finding against its stated
-  failure scenario;
-- independent diagnosis of a failure the lead is stuck on;
-- review of a completed logical change.
+Match the delegate's tier to the objective's ambiguity and risk, not to how
+important the project feels. Run the lead on the strongest model the budget
+allows; leading one tier below the frontier is a legitimate economy when
+the lead delegates **up** for the judgments that warrant it.
 
-Unsuitable: tiny sequential edits to code the lead already holds in context,
-work whose interface is still being designed, and anything tightly coupled
-to what the lead is concurrently editing.
+**Lesser (faster, cheaper) model** — bounded, low-ambiguity, low-risk:
+
+- read-only reconnaissance — locating and summarizing files, symbols,
+  patterns, contained subsystems;
+- running prescribed commands and collecting evidence;
+- isolated changes behind an already-defined interface;
+- implementation against a pre-written failing test suite it may not
+  modify;
+- high-volume mechanical sweeps — bulk renames, repetitive scaffolding,
+  boilerplate — that need volume, not the lead's context;
+- routine tests written from explicit criteria, and mechanical consistency
+  checks;
+- verifying a review finding whose failure scenario is mechanically
+  checkable.
+
+**Peer or frontier model** — ambiguity, coupling, or consequence:
+
+- ambiguous or underspecified requirements, and shared-interface design;
+- broadly coupled changes;
+- security, concurrency, migrations, destructive operations — including
+  verifying security-flavored findings;
+- adversarial test derivation against acceptance criteria;
+- independent diagnosis of a failure the lead is stuck on, especially one
+  that may change the architecture;
+- review — at routine boundaries, and adversarial or consequential final
+  review.
+
+Never delegate small sequential edits to code the lead already holds, work
+whose interface is still being designed, or anything tightly coupled to what
+the lead is concurrently editing.
 
 ## The delegate brief
 
-Every brief contains, explicitly:
+Every brief states, explicitly:
 
 1. **One objective** — a single outcome, not a list of chores;
-2. **Context** — only what is necessary, plus links to durable artifacts
-   (the spec, the execution map entry) rather than restated prose;
-3. **Ownership** — the exact files or subsystems the delegate may touch;
-4. **Constraints and non-goals** — what must not change, what is out of scope;
+2. **Context** — only what is necessary: a path to the spec file when one
+   exists rather than restated prose; otherwise the approved contract —
+   for a direct change, its statement of change and verification —
+   restated in full, since the delegate cannot see the conversation;
+3. **Ownership** — the exact files or subsystems the delegate may touch, and
+   whether it may modify files at all;
+4. **Constraints and non-goals**;
 5. **Acceptance criteria** — how the delegate knows it succeeded;
-6. **Verification expectations** — what the delegate must run and report;
-7. **Return format** — what the lead needs back (findings, diff summary,
-   evidence), stated concretely;
-8. **Edit permission** — whether the delegate may modify files at all.
+6. **Verification** — what it must run and report;
+7. **Return format** — conclusions with paths and line references, the
+   diff summary, the evidence; never pasted file contents, which hand the
+   context cost back to the lead.
 
-A brief the assigned model cannot succeed at safely is a lead error, not a
-delegate error. Shape the brief to the tier (below).
+A brief the assigned model cannot succeed at safely is a lead error. Tighten
+it when assigning down-tier: sharper ownership, more explicit criteria, less
+judgment. When a delegate returns weak or unverified work, tighten the
+brief, raise the tier, take the work back, or change execution mode — in
+that order of preference.
 
-**Signal, not file dumps.** A reconnaissance delegate returns conclusions —
-what was found, where, with paths and line references — never pasted file
-contents, which hand the context cost back to the lead. Say so in the
-return format.
+## Tests as the contract
 
-**Tests as the contract.** When acceptance criteria are crisp and testable,
-the strongest brief encodes them as failing tests before delegation: the
-objective is "make these tests pass," the tests are the acceptance criteria,
-and verification is running them. State explicitly that the delegate must
-not modify the tests — a returned diff that edits them is a rejected result,
-not a negotiation. Require a general solution in the same breath: the
-delegate implements the logic the tests exercise, not code tailored to
-their specific inputs, and reports a test it believes is wrong rather than
-working around it. Inspect the returned diff for test-tailored shortcuts —
-hardcoded expected values, special-cased inputs — before accepting it.
-Derive the tests in the lead's context or delegate the derivation as its
-own bounded objective, never to the delegate that will implement against
-them.
+When acceptance criteria are crisp and testable, the strongest brief
+encodes them as failing tests before delegation: the objective is "make
+these pass," and verification is running them. The delegate must not
+modify the tests — a diff that edits them is a rejected result. Require a
+general solution in the same breath: implement the logic the tests
+exercise, not code fitted to their inputs, and report a test believed wrong
+rather than working around it. Inspect the returned diff for test-tailored
+shortcuts — hardcoded expected values, special-cased inputs — before
+accepting it. The tests are derived in the lead's context or by a separate
+delegate, never by the one that implements against them.
 
 ## Ownership rules
 
 - Never run parallel delegates with edit permission over overlapping files.
 - Delegates that edit concurrently each work in an isolated workspace — a
-  worktree or equivalent — so partial work never shares a tree with the
-  lead's commits or another delegate's edits. Isolation is in addition to
-  non-overlapping ownership, not a substitute for it. When isolation cannot
-  be created, run editing delegates one at a time.
-- Delegates do not write history on the implementation workspace. A
-  delegate's result is its changes and evidence; the lead verifies the work
-  and makes the commit. An isolated delegate leaves its changes uncommitted
-  in its workspace and reports where that workspace is; the lead brings the
-  changes into the implementation workspace, verifies them there, commits
-  path-scoped, and removes the isolated workspace.
-- If workstreams turn out to be tightly coupled, or integration is becoming
-  the dominant cost, **stop parallel edits and return ownership to the
-  lead**. Absorbing two half-integrated diffs is worse than doing the work
-  serially.
-
-## Capability-tier selection
-
-Run the persistent lead on a strong model — the strongest the budget allows.
-Leading one tier below the frontier is a legitimate economy when design and
-mapping already ran at the top tier: the lead then delegates **up-tier** for
-the judgments that warrant it — adversarial final review, diagnosis that may
-change the architecture, security calls — rather than carrying the frontier
-model through the whole implementation. When the harness exposes model
-selection for delegates, match tier to ambiguity and risk — not to how
-important the overall project feels.
-
-**Prefer a lesser (faster, cheaper) model** for bounded, low-ambiguity,
-low-risk work:
-
-- locating and summarizing: files, symbols, patterns, contained subsystems;
-- running prescribed commands and collecting evidence;
-- isolated changes behind an already-defined interface;
-- implementation against a pre-written failing test suite it may not modify;
-- routine tests written from explicit criteria;
-- verifying a review finding whose failure scenario is mechanically
-  checkable;
-- mechanical consistency checks.
-
-**Use a peer or frontier model** for:
-
-- ambiguous or underspecified requirements;
-- shared-interface design;
-- broadly coupled changes;
-- security, concurrency, migrations, destructive operations;
-- diagnosis that may change the architecture;
-- adversarial review and consequential final review.
-
-Tighten the brief when assigning down-tier: sharper ownership, more explicit
-criteria, less judgment required. If a delegate returns weak, incomplete, or
-unverified work, tighten the brief, raise the tier, take the work back, or
-change execution mode — in that order of preference.
-
-If model selection is unavailable, keep the same task-shaping rules with the
-model you have; the brief discipline is what makes delegation safe.
+  worktree or equivalent — in addition to non-overlapping ownership. When
+  isolation is unavailable, run editing delegates one at a time.
+- Delegates do not write history on the implementation workspace. An
+  isolated delegate leaves its changes uncommitted and reports where its
+  workspace is; the lead brings the changes over, verifies and commits
+  them per `leading-implementation`, and removes the isolated workspace.
+- If workstreams turn out tightly coupled, or integration becomes the
+  dominant cost, **stop parallel edits and return ownership to the lead**.
+  Absorbing two half-integrated diffs is worse than serial work.
 
 ## Harness mechanics
 
-This skill describes delegation by intent: start a bounded delegate, wait for
-results, send a follow-up. For the concrete primitives:
+For the concrete primitives:
 
 - Claude Code: read `references/claude-code.md`
 - Codex: read `references/codex.md`
 
-If subagents, parallelism, or model selection are unavailable in the current
-harness, do not force them: the lead executes the same work sequentially,
-preserving the same ownership boundaries, evidence expectations, and review
-points.
+If subagents, parallelism, or model selection are unavailable, do not force
+them: the lead does the same work sequentially with the same ownership,
+evidence, and review boundaries. The brief discipline, not the facility, is
+what makes delegation safe.

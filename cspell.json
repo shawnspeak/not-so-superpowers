@@ -21,6 +21,18 @@
     "triages",
     "dispositioned",
     "dispositioning",
-    "Superpowers"
-  ]
+    "Superpowers",
+    "unparseable",
+    "multicurrency",
+    "backfill",
+    "isoformat",
+    "strftime",
+    "sqlite",
+    "unittest",
+    "scaffolded",
+    "ablation",
+    "pycache",
+    "unvalidated"
+  ],
+  "ignoreRegExpList": ["/^(pattern|input_match|before|after): .*$/gm"]
 }

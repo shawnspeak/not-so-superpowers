@@ -1,136 +1,173 @@
 ---
 name: leading-implementation
-description: Use when implementing an approved spec (design or fix) with an execution map — after mapping-work chooses an execution mode. One persistent lead carries the implementation end to end, retaining context, delegating selectively, and owning integration and the final report.
+description: Use when implementing approved work — an approved contract from brainstorming, diagnosing, or triaging-findings, or a clear change routed directly. One persistent lead plans the work against the repository, implements it end to end, delegates selectively, and owns integration, commits, and the final report.
 ---
 
 # Leading Implementation
 
-One persistent lead is responsible for the implementation end to end. Context
-learned while implementing — the real shape of the code, the surprises, the
-constraints nobody wrote down — is the most valuable asset in the room. Do
-not throw it away by fragmenting coupled work across fresh contexts.
+One persistent lead is responsible for the implementation end to end.
+Context learned while implementing — the real shape of the code, the
+surprises, the constraints nobody wrote down — is the most valuable asset
+in the room. Do not throw it away by fragmenting coupled work across fresh
+contexts.
 
 ## The lead's contract
 
-- The **approved spec** is the product and architecture contract.
-  What must be built does not change without going back to the user.
-- The **execution map** is a living coordination aid. Reshape it freely when
-  evidence demands; record why.
-- Implement **coherent vertical slices** — a package's outcome, end to end —
-  rather than horizontal layers or micro-steps. Keep tightly coupled work in
-  your own context.
+- The approved **contract** says what must be built. It does not change
+  without going back to the user.
+- The **plan** is a coordination aid. Reshape it freely when evidence
+  demands, and record why; at the full tier the revised spec file rides the
+  next commit, so the committed Plan never lags the one the lead works from.
 - Build the **simplest implementation that satisfies the acceptance
-  criteria**. Abstractions, configurability, and defensive code the spec
-  does not demand are scope creep, not diligence.
-- Run **focused verification after each meaningful slice**: the package's
-  own acceptance criteria and verification commands, not the whole world.
-- **Replan when evidence invalidates an assumption.** If the evidence only
-  changes sequencing, update the map and continue. If it contradicts a
-  material spec assumption, stop that path and resolve the product or
-  architecture conflict with the user.
+  criteria**. Abstractions, configurability, and defenses the contract does
+  not demand are scope creep, not diligence.
+- Implement **coherent vertical slices**, each verified by its own
+  acceptance criteria and commands — not horizontal layers or micro-steps.
+- **Replan when evidence invalidates an assumption.** Evidence that only
+  changes sequencing updates the plan and is reported to the user without
+  waiting for approval. Evidence that contradicts a material contract
+  assumption stops that path until the conflict is resolved with the user.
+
+## Plan against the repository
+
+If the work arrived without a route or tier, classify and size it per
+`routing-work` first and follow its route: only a clear change or an
+approved contract is implemented here.
+
+Before the first change, confirm the contract is approved — its spec file
+marks it approved, or the user approved it in this conversation; a draft
+goes back to the user — then inspect the code the contract touches and
+confirm its technical assumptions: the interfaces it names exist, the
+seams it relies on are real, the subsystems it partitions are separable. A
+wrong material assumption goes back to the user before any work is planned
+against it.
+
+If the spec file already has a Plan, this is a resumed session: run the
+same check against the packages that remain and confirm the workspace the
+Plan names still exists — if it is gone or already merged, ask the user
+before recreating it. See which packages its history already holds and
+continue from there rather than replanning from scratch.
+
+At the direct tier the plan is the one-line statement of change and
+verification, and the whole change is one package; the rest of this
+section applies to light and full work.
+
+Choose one execution mode from what inspection showed, and state the
+evidence for it:
+
+1. **Coherent change** — one tightly coupled thread. Implement directly;
+   delegation would add handoff cost without benefit.
+2. **Uncertain or broad change** — the blast radius or current state is
+   unclear. Dispatch read-only reconnaissance, correct the plan's scope
+   from its findings, then implement.
+3. **Naturally partitioned change** — real seams with stable interfaces.
+   Delegates own separate workstreams with non-overlapping files; the lead
+   owns shared interfaces and integration.
+
+Break the work into outcome-sized **packages** — usually one to eight. A
+package is an independently verifiable, independently committable result,
+never a timed micro-step: "rename the field, update the callers, fix the
+tests" is one package. Each records its outcome, the contract decisions
+that bind it, dependencies, likely scope, acceptance criteria,
+verification commands, and risks where they apply.
+
+The tier decides where the plan lives:
+
+- **light** — the plan stays in the lead's working context. The moment
+  the work must outlive the conversation, per `routing-work`, promote the
+  contract to a file and write its Plan as at the full tier;
+- **full** — the plan is written into the spec file's Plan section before
+  the first change, opening with a `Workspace:` line that names the branch
+  or worktree decided below, so a different session can resume from the
+  file alone.
+
+The plan records decisions that drive the work, never workspace state
+snapshots. A separate detailed procedure is warranted only when it has
+independent coordination value: multiple owners or repositories, sequenced
+rollout and rollback, interfaces to agree before parallel work, or a
+security, compliance, or operations risk that demands a reviewable
+procedure.
 
 ## Confirm the workspace
 
-Before the first change, confirm that the workspace the map names — the
-branch or worktree the implementation lives on — matches reality, and create
-it if it does not exist yet. If the map is silent, decide now and record the
-decision in the map: follow the project's branching convention when one
-exists; otherwise, when the session sits on the default branch, create a
-dedicated feature branch — package commits never land on the default
-branch unless the project's convention puts them there; note the absence
-of version control rather than inventing it. A different session resuming this work must be
-able to find the work in progress from the map alone.
+Before the first change, settle the workspace — the branch or worktree the
+implementation lives on. Follow the project's branching convention when one
+exists. Otherwise, stay on the current branch only when it already belongs
+to this work; from the default branch or a branch holding unrelated work,
+create a dedicated feature branch. Commits never land on the default branch
+unless the project's convention puts them there. Where there is no version
+control, say so rather than inventing it.
 
-Check the workspace for pre-existing uncommitted changes at the same time.
-They belong to the user: never stage them into a package commit, never
-revert them, leave them as found. If any overlap files the map expects the
-implementation to touch, resolve the conflict with the user before the
-first change. From then on the tree is unambiguous, even to a resumed
-session: an uncommitted change inside a package's scope is work in
+Check for pre-existing uncommitted changes at the same time. They belong to
+the user: never stage them, never revert them. The spec file this stack
+wrote is the exception — it is the work's own artifact, and the lead
+commits it with its Plan as the first commit on the workspace, or as the
+next commit when it is promoted mid-work. If any user
+change overlaps files the plan expects to touch, resolve that with the user
+before the first change.
+From then on, an uncommitted change inside a package's scope is work in
 progress; anything outside it is the user's.
 
 ## Commit at package boundaries
 
-When the workspace is under version control, a verified package is a
-commit. Once a package's focused verification passes, commit its changes
-before moving on — one atomic, green checkpoint per package, written in the
-project's commit style as read from its history rather than a style imposed
-on it. Do not let verified work accumulate uncommitted across package
-boundaries: committed checkpoints are what let a resumed session recover
-the work. Implementing an execution map under this skill is the user's
-request for these package commits — do not stop to ask before each one.
-Pushing, merging, and rewriting history remain the user's call.
+Under version control, a verified package is a commit. Once a package's
+verification passes, commit it before moving on, in the project's commit
+style as read from its history. Implementing approved work under this skill
+is the user's request for these package commits when the user invoked the
+stack or approved a contract under it — do not stop to ask before each one.
+At the direct tier, if the stack engaged on its own and the user did
+neither, ask once before the first commit. Pushing, merging, and rewriting
+history remain the user's call.
 
-A package commit is path-scoped. Stage only the files the package's work
-actually touched, and inspect the staged diff before committing to confirm
-it contains exactly that work — not pre-existing user changes, not a
-concurrent delegate's partial work. Never stage the whole tree in a
-workspace that holds anything besides the package's own changes.
+Commits are path-scoped: stage only the files the package touched — plus
+the spec file when its Plan changed since it was last committed — and
+inspect the staged diff to confirm it holds exactly that work — no user
+changes, no delegate's partial work. Only the lead writes history on the
+implementation workspace. Never commit failing or unverified work as a
+completed package; a mid-package checkpoint is labeled work in progress.
 
-History on the implementation workspace belongs to the lead. Verify a
-delegate's returned work before committing it, and never commit failing or
-unverified work as a completed package — if you must checkpoint
-mid-package, label the commit explicitly as work in progress.
-
-## Delegation is selective
+## Delegate selectively
 
 Delegate only through `delegating-workstreams`, and only when the work
-genuinely branches or an independent judgment is valuable: separate
-workstreams behind stable interfaces, read-only reconnaissance, adversarial
-checks, independent diagnosis. Never delegate tiny sequential edits to the
-code you are already holding in context — the handoff costs more than the
-work. High-volume mechanical work is the exception at the other end of the
-scale: bulk renames, repetitive test scaffolding, boilerplate generation, and
-similar sweeps are worth handing to a lesser-tier delegate even when they do
-not branch — the volume dwarfs the handoff cost and the work needs none of
-your accumulated context. Delegation transfers work, not accountability: you
-inspect what comes back and you integrate it.
-
-When a package's acceptance criteria are crisp and testable, consider making
-tests the delegation contract: encode the criteria as failing tests before
-any implementation exists, then hand "make these pass without modifying
-them" to a lesser-tier delegate — the lowest-ambiguity brief there is, since
-done is machine-checked, not argued. The full contract — who derives the
-tests, the general-solution requirement, the overfitting inspection on
-returned work — lives in `delegating-workstreams`.
+genuinely branches, needs volume rather than your context, or benefits from
+an independent judgment. When a
+package's criteria are crisp and testable, failing tests written first are
+the strongest delegation contract; its rules live in
+`delegating-workstreams`.
 
 ## Review at boundaries
 
-Invoke `reviewing-work` at risk-appropriate boundaries — after a complete
-logical slice whose failure would be expensive, and always before
-consequential completion. The consequential-completion review must be
-independent of the lead — delegate it through `delegating-workstreams`
-(up-tier where warranted); reviewing your own work does not gate
-consequential completion. Do not request review of every microscopic step.
+Invoke `reviewing-work` after a complete slice whose failure would be
+expensive, and always before consequential completion, where the reviewer
+must be independent of the lead. Skip review for low-risk direct changes.
+Do not review every microscopic step.
 
-## Escalate orchestration when
+## Escalate when
 
 - repeated attempts at the same problem keep failing;
-- repository impact turns out much broader than the map assumed;
-- test results invalidate your mental model of the system;
+- repository impact is much broader than planned;
+- test results invalidate your model of the system;
 - a security-sensitive question remains uncertain;
-- your context has degraded enough that an independent reconstruction by a
-  fresh delegate would be more reliable than pushing on.
+- your context has degraded enough that a fresh delegate's independent
+  reconstruction would be more reliable.
 
-Escalating means changing the topology — dispatching reconnaissance, getting
-an independent diagnosis, raising the review tier — not silently grinding.
+Escalating changes the topology — reconnaissance, an independent diagnosis,
+an up-tier reviewer, a higher process tier for the whole work — rather than
+silently grinding.
 
 ## Completion
 
 The lead owns shared interfaces, integration, aggregate verification, and
-the final report. Before declaring done:
+the final report. Before declaring done, once:
 
 1. run the relevant full validation, not just per-slice checks;
-2. inspect the aggregate diff as a whole — integration seams, accidental
-   inclusions, leftover scaffolding;
-3. check every acceptance criterion in the spec against evidence;
-4. report what changed, the evidence, and any remaining uncertainty —
-   explicitly and in brief, citing evidence rather than replaying it.
-   Never infer success solely from a delegate's claim, a reviewer's
-   approval, or a single passing command.
+2. inspect the aggregate diff — integration seams, accidental inclusions,
+   leftover scaffolding;
+3. check every acceptance criterion against evidence;
+4. report what changed, the evidence, and remaining uncertainty, in brief —
+   citing evidence rather than replaying it. Never infer success from a
+   delegate's claim, a reviewer's approval, or a single passing command.
 
-Completion leaves the implementation's changes fully committed: work that
-exists only in an uncommitted working tree is not done. Pre-existing
-changes that were in the workspace before work began are left untouched
-and noted in the final report, so their presence is explained rather than
-mistaken for stranded work.
+Completion leaves the implementation's changes fully committed. Pre-existing
+user changes are left untouched and noted in the report, so their presence
+is explained rather than mistaken for stranded work.

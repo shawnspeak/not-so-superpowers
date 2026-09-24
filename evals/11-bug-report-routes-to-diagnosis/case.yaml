@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: 11-bug-report-routes-to-diagnosis
+description: A bug report is reproduced before any theory, the upstream root cause is confirmed rather than the crash site patched, and the code is unchanged until a fix contract is approved.
+tags: [routing, diagnosing]
+context:
+  scaffold_script: fixture.sh
